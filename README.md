@@ -1,6 +1,6 @@
 ## Getting Started
 
-[Clique aqui]("./GettingStarted.md") para ver as configurações iniciais do projeto
+[Clique aqui]("/GettingStarted.md") para ver as configurações iniciais do projeto
 
 ## Folder Structure
 
