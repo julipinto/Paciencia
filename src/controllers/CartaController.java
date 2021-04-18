@@ -10,7 +10,7 @@ public class CartaController {
   public CartaController(ConfiguracaoBaralho config) {
     ArrayList<Carta> cartas = config.gerarBaralho();
     for(Carta c: cartas){
-      //oi
+      System.out.println(c.toString());
     }
   }
 

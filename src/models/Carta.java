@@ -3,11 +3,13 @@ package models;
 public class Carta{
   private final String naipe;
   private final String valor;
+  private final String simbolo;
   private final int peso;
 
-  public Carta(String naipe, String valor) {
+  public Carta(String naipe, String valor, String simbolo) {
     this.naipe = naipe;
     this.valor = valor;
+    this.simbolo = simbolo;
     this.peso = this.convertValorToPeso(valor);
   }
 
@@ -21,6 +23,10 @@ public class Carta{
 
   public int getPeso() {
     return peso;
+  }
+
+  public String getSimbolo() {
+    return simbolo;
   }
 
   public int convertValorToPeso(String valor){
@@ -49,7 +55,7 @@ public class Carta{
 
   @Override
   public String toString() {
-    return valor + " de " + naipe;
+    return valor + " de " + naipe + " " + simbolo;
   }
 
 }
