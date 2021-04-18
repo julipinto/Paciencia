@@ -1,5 +1,6 @@
 package utils;
 
+import errors.JogoNaoEncontradoException;
 import models.Baralho;
 
 abstract public class Jogo {
@@ -11,5 +12,9 @@ abstract public class Jogo {
 
   public Baralho getBaralho(){
     return baralho;
+  }
+
+  public void jogar() throws JogoNaoEncontradoException{
+    throw new JogoNaoEncontradoException("Esse jogo não foi implementado");
   }
 }

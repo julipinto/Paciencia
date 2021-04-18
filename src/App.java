@@ -7,6 +7,7 @@ public class App {
         Baralho baralho = new Baralho();
         String option = "paciencia";
         Jogo jogo = JogoFactotry.gerar(option, baralho);
+        jogo.jogar();
         //CartaController controller = new CartaController(baralho);
     }
 }
