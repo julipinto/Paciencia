@@ -1,9 +1,12 @@
-import controllers.CartaController;
-import utils.ConfiguracaoBaralho;
+import models.Baralho;
+import models.JogoFactotry;
+import utils.Jogo;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        ConfiguracaoBaralho config = new ConfiguracaoBaralho();
-        CartaController controller = new CartaController(config);
+        Baralho baralho = new Baralho();
+        String option = "paciencia";
+        Jogo jogo = JogoFactotry.gerar(option, baralho);
+        //CartaController controller = new CartaController(baralho);
     }
 }

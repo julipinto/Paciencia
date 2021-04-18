@@ -4,12 +4,14 @@ public class Carta{
   private final String naipe;
   private final String valor;
   private final String simbolo;
+  private boolean face;
   private final int peso;
 
   public Carta(String naipe, String valor, String simbolo) {
     this.naipe = naipe;
     this.valor = valor;
     this.simbolo = simbolo;
+    this.face = false;
     this.peso = this.convertValorToPeso(valor);
   }
 
@@ -43,6 +45,14 @@ public class Carta{
           return Integer.parseInt(valor);
     }
   } 
+
+  public boolean isFace() {
+    return face;
+  }
+
+  public void setFace(boolean face) {
+    this.face = face;
+  }
 
   @Override
   public boolean equals(Object obj) {
