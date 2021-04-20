@@ -1,13 +1,17 @@
 package utils;
 
+import java.util.Scanner;
+
 import errors.JogoNaoEncontradoException;
 import models.Baralho;
 
 abstract public class Jogo {
-  private Baralho baralho;
+  public Baralho baralho;
+  public Scanner input; 
 
   public Jogo(Baralho baralho){
     this.baralho = baralho;
+    this.input = new Scanner(System.in);
   }
 
   public Baralho getBaralho(){

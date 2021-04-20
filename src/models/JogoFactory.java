@@ -3,7 +3,7 @@ package models;
 import errors.JogoNaoEncontradoException;
 import utils.Jogo;
 
-abstract public class JogoFactotry {
+abstract public class JogoFactory {
   
   public static Jogo gerar(String option, Baralho baralho) throws JogoNaoEncontradoException {
     switch (option) {

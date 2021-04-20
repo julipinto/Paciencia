@@ -1,13 +1,14 @@
 import models.Baralho;
-import models.JogoFactotry;
+import models.BaralhoFactory;
+import models.JogoFactory;
 import utils.Jogo;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        Baralho baralho = new Baralho();
         String option = "paciencia";
-        Jogo jogo = JogoFactotry.gerar(option, baralho);
+        BaralhoFactory baralhoFactory = new BaralhoFactory();
+        Baralho baralho = baralhoFactory.gerarBaralho();
+        Jogo jogo = JogoFactory.gerar(option, baralho);
         jogo.jogar();
-        //CartaController controller = new CartaController(baralho);
     }
 }

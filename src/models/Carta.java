@@ -31,6 +31,14 @@ public class Carta{
     return simbolo;
   }
 
+  public boolean isFace() {
+    return face;
+  }
+
+  public void setFace(boolean face) {
+    this.face = face;
+  }
+
   public int convertValorToPeso(String valor){
     switch (valor) {
       case "K":
@@ -46,19 +54,22 @@ public class Carta{
     }
   } 
 
-  public boolean isFace() {
-    return face;
+  public int getDistancia(Carta carta, boolean considerarNaipe){
+    if(carta.getNaipe() != naipe && considerarNaipe){
+      return -99;
+    }
+    else{
+      return peso - carta.getPeso();
+    }
   }
-
-  public void setFace(boolean face) {
-    this.face = face;
-  }
-
+  
   @Override
   public boolean equals(Object obj) {
-    Carta nova = (Carta) obj;
-    if(naipe.equals(nova.getNaipe()) && this.valor.equals(nova.getValor())){
-      return true;
+    if(obj instanceof Carta){
+      Carta nova = (Carta) obj;
+      if(naipe.equals(nova.getNaipe()) && this.valor.equals(nova.getValor())){
+        return true;
+      }
     }
     return false;
   }

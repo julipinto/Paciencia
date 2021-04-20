@@ -1,25 +1,26 @@
 package models;
-
-import errors.JogoNaoEncontradoException;
 import utils.Jogo;
 
 public class Paciencia extends Jogo{
-  private Baralho baralho;
 
   public Paciencia(Baralho baralho){
     super(baralho);
-
   }
 
   @Override
   public void jogar() {
-    System.out.println("o jogo foi implementado");
-    System.out.println(this.getBaralho());
+    particionarBaralho();
   }
 
-  
-  
+  public void particionarBaralho(){}
 
-  
-  
+  public void menuRodada(){
+    System.out.println("Selecione uma opção");
+    System.out.println("1 - Mover Carta");
+    System.out.println("2 - Exibir Jogo");
+    System.out.println("3 - Alterar Quantidade de cartas a virar do estoque");
+    System.out.println("4 - Reiniciar");
+    System.out.println("5 - Finalizar");
+    int resposta = this.input.nextInt();
+  }
 }
