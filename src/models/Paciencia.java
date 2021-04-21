@@ -4,7 +4,9 @@ import utils.Jogo;
 
 public class Paciencia extends Jogo {
   CartasController cartasController;
-  private Baralho[] fundacoes;
+  private Baralho [] fundacoes;
+  private Baralho fileiras[] = new Baralho[7];
+  private Baralho remanecentes;
 
   public Paciencia(Baralho baralho){
     super(baralho);
@@ -13,8 +15,24 @@ public class Paciencia extends Jogo {
 
   @Override
   public void jogar() {
-    Baralho novo = cartasController.fatiarBaralho(this.baralho, 0, 1);
-    novo.printarBaralho();
+    dividirBaralho();
+    for(int i = 0; i < fileiras.length; i++){
+      System.out.print("FUNDAÇÃO " +  i + ": ");
+      fileiras[i].printarBaralho();
+    }
+    // Baralho novo = cartasController.fatiarBaralho(this.baralho, 0, 1);
+    // novo.printarBaralho();
+  }
+
+  private void dividirBaralho(){
+    int sum = 0;
+    for(int i = 0; i < 7; i++){
+      Baralho novo = cartasController.fatiarBaralho(this.baralho, sum, sum + i);
+      fileiras[i] = novo;
+      int qtd = i + 1;
+      sum += qtd;
+
+    }
   }
 
 

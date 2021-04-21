@@ -76,7 +76,7 @@ public class Carta{
 
   @Override
   public String toString() {
-    return valor + " de " + naipe + " " + simbolo;
+    return valor + " de " + simbolo;
   }
 
 }
