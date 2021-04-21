@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class BaralhoFactory {
   private final String[] naipes = {"espadas", "copas", "paus", "ouros"};
@@ -15,7 +16,7 @@ public class BaralhoFactory {
     this.quantidadeDeBaralhos = quantidadeDeBaralhos;
   }
   
-  public Baralho gerarBaralho(){
+  public Baralho gerarBaralho(boolean embaralhado){
     ArrayList<Carta> cartas = new ArrayList<Carta>();
 
     for(int i = 0; i < quantidadeDeBaralhos; i++){
@@ -28,7 +29,13 @@ public class BaralhoFactory {
           }
         }
     }
+
+    if(embaralhado){
+      Collections.shuffle(cartas);
+    }
+    
     this.baralho = new Baralho(cartas);
+
     return baralho;
   }
 

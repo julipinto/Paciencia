@@ -5,9 +5,11 @@ import utils.Jogo;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        String option = "paciencia";
         BaralhoFactory baralhoFactory = new BaralhoFactory();
-        Baralho baralho = baralhoFactory.gerarBaralho();
+        boolean embaralhado = true;
+        Baralho baralho = baralhoFactory.gerarBaralho(embaralhado);
+        
+        String option = "paciencia";
         Jogo jogo = JogoFactory.gerar(option, baralho);
         jogo.jogar();
     }
