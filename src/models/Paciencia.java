@@ -1,18 +1,22 @@
 package models;
+import controllers.CartasController;
 import utils.Jogo;
 
-public class Paciencia extends Jogo{
+public class Paciencia extends Jogo {
+  CartasController cartasController;
+  private Baralho[] fundacoes;
 
   public Paciencia(Baralho baralho){
     super(baralho);
+    cartasController = new CartasController();
   }
 
   @Override
   public void jogar() {
-    particionarBaralho();
+    Baralho novo = cartasController.fatiarBaralho(this.baralho, 0, 1);
+    novo.printarBaralho();
   }
 
-  public void particionarBaralho(){}
 
   public void menuRodada(){
     System.out.println("Selecione uma opção");

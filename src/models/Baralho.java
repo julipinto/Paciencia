@@ -16,5 +16,9 @@ public class Baralho {
       System.out.println(c.toString());
     }
   }
+
+  public ArrayList<Carta> getCartas(){
+    return cartas;
+  }
   
 }
