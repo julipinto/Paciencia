@@ -16,6 +16,9 @@ public class Paciencia extends Jogo {
   @Override
   public void jogar() {
     dividirBaralho();
+    System.out.print("REMANECENTES: ");
+    remanecentes.printarBaralho();
+
     for(int i = 0; i < fileiras.length; i++){
       System.out.print("FUNDAÇÃO " +  i + ": ");
       fileiras[i].printarBaralho();
@@ -33,6 +36,9 @@ public class Paciencia extends Jogo {
       sum += qtd;
 
     }
+    Baralho resto = cartasController.fatiarBaralho(this.baralho, sum, this.baralho.length -1);
+    this.remanecentes = resto;
+
   }
 
 
