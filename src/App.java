@@ -1,6 +1,6 @@
 import models.Baralho;
-import models.BaralhoFactory;
-import models.JogoFactory;
+import models.factories.BaralhoFactory;
+import models.factories.JogoFactory;
 import utils.Jogo;
 
 public class App {

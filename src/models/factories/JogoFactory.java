@@ -1,7 +1,9 @@
-package models;
+package models.factories;
 
 import errors.JogoNaoEncontradoException;
+import models.Baralho;
 import utils.Jogo;
+import views.Paciencia;
 
 abstract public class JogoFactory {
   

@@ -1,5 +1,6 @@
-package models;
+package views;
 import controllers.CartasController;
+import models.Baralho;
 import utils.Jogo;
 
 public class Paciencia extends Jogo {
@@ -12,7 +13,7 @@ public class Paciencia extends Jogo {
     super(baralho);
     cartasController = new CartasController();
   }
-
+ 
   @Override
   public void jogar() {
     dividirBaralho();
@@ -21,16 +22,16 @@ public class Paciencia extends Jogo {
   }
 
   private void dividirBaralho(){
-    int sum = 0;
-    for(int i = 0; i < 7; i++){
-      Baralho novo = cartasController.fatiarBaralho(this.baralho, sum, sum + i);
-      fileiras[i] = novo;
-      int qtd = i + 1;
-      sum += qtd;
+    // int sum = 0;
+    // for(int i = 0; i < 7; i++){
+    //   Baralho novo = cartasController.fatiarBaralho(this.baralho, sum, sum + i);
+    //   fileiras[i] = novo;
+    //   int qtd = i + 1;
+    //   sum += qtd;
 
-    }
-    Baralho resto = cartasController.fatiarBaralho(this.baralho, sum, this.baralho.length -1);
-    this.remanecentes = resto;
+    // }
+    // Baralho resto = cartasController.fatiarBaralho(this.baralho, sum, this.baralho.length -1);
+    // this.remanecentes = resto;
 
   }
 

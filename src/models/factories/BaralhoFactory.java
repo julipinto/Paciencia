@@ -1,7 +1,10 @@
-package models;
+package models.factories;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import models.Baralho;
+import models.Carta;
 
 public class BaralhoFactory {
   private final String[] naipes = {"espadas", "copas", "paus", "ouros"};
