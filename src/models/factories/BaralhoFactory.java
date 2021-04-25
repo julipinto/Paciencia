@@ -10,6 +10,7 @@ public class BaralhoFactory {
   private final String[] naipes = {"espadas", "copas", "paus", "ouros"};
   private final String[] simbolos = {"♠", "♣", "♥", "♦"};
   private final String[] valores = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
+  private final int[] pesos = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
   private int quantidadeDeBaralhos = 1;
   private Baralho baralho;
   
@@ -26,9 +27,15 @@ public class BaralhoFactory {
         for(int j = 0; j < naipes.length; j++){
           String naipe = naipes[j];
           String simbolo = simbolos[j];
+          int peso = pesos[j];
 
           for(String valor : valores){
-            cartas.add(new Carta(naipe, valor, simbolo));
+
+            String cor = "preto";
+            if(naipe.equals("copas") || naipe.equals("ouros")){
+             cor = "vermelho";
+            }
+            cartas.add(new Carta(naipe, valor, simbolo, cor, peso));
           }
         }
     }

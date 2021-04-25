@@ -11,7 +11,8 @@ public class Fundacao extends ListaDeCartas{
     super(cartas);
   }
 
-  public Fundacao() {
-  }
+  public Fundacao() {}
+
+  public void addCarta(){}
   
 }

@@ -1,55 +1,71 @@
 package views;
-import controllers.CartasController;
+import java.util.ArrayList;
+
 import models.Baralho;
+import models.Carta;
+import models.paciencia.Fileira;
+import models.paciencia.Fundacao;
+import models.paciencia.Remanecente;
 import utils.Jogo;
 
 public class Paciencia extends Jogo {
-  CartasController cartasController;
-  private Baralho fundacoes[] = new Baralho[4];
-  private Baralho fileiras[] = new Baralho[7];
-  private Baralho remanecentes;
+  // private Baralho fundacoes[] = new Baralho[4];
+  private Fundacao fundacoes[] = new Fundacao[4];
+  private Fileira fileiras[] = new Fileira[7];
+  private Remanecente remanecente;
 
   public Paciencia(Baralho baralho){
     super(baralho);
-    cartasController = new CartasController();
   }
  
   @Override
   public void jogar() {
-    dividirBaralho();
-    printarJogo();
+    boolean res = false;
 
+    do {
+      res = fluxoDeJogo();
+    } while (res);
   }
 
-  private void dividirBaralho(){
-    // int sum = 0;
-    // for(int i = 0; i < 7; i++){
-    //   Baralho novo = cartasController.fatiarBaralho(this.baralho, sum, sum + i);
-    //   fileiras[i] = novo;
-    //   int qtd = i + 1;
-    //   sum += qtd;
+  public boolean fluxoDeJogo(){
+    int somaDeCartasDasFileiras = dividirFileiras();
+    gerarRemanecente(somaDeCartasDasFileiras);
+    printarJogo();
 
-    // }
-    // Baralho resto = cartasController.fatiarBaralho(this.baralho, sum, this.baralho.length -1);
-    // this.remanecentes = resto;
+    return false;
+  }
 
+  private int dividirFileiras(){
+    int sum = 0;
+    for(int i = 0; i < 7; i++){
+      ArrayList<Carta> fatia = this.baralho.fatiar(sum, sum + i);
+      this.fileiras[i] = new Fileira(fatia);
+      int qtd = i + 1;
+      sum += qtd;
+    }
+    return sum;
+  }
+
+  private void gerarRemanecente(int fromIndex){
+    ArrayList<Carta> restoDoBaralho = this.baralho.fatiar(fromIndex, this.baralho.length -1);
+    this.remanecente = new Remanecente(restoDoBaralho);
   }
 
   public void printarJogo(){
-    for(int i = 0; i < fundacoes.length; i++){
-      if(fundacoes[i] == null){
-        System.out.println("FUNDAÇÃO " + i + ": [   ]");
-      }else {
-        System.out.println("FUNDAÇÃO " + i + ": [ X ]");
-      }
-    }
-    System.out.print("REMANECENTES: ");
-    remanecentes.printarBaralho();
+    // for(int i = 0; i < fundacoes.length; i++){
+    //   if(fundacoes[i] == null){
+    //     System.out.println("FUNDAÇÃO " + i + ": [   ]");
+    //   }else {
+    //     System.out.println("FUNDAÇÃO " + i + ": [ X ]");
+    //   }
+    // }
+    // System.out.print("REMANECENTES: ");
+    // remanecentes.printarBaralho();
 
-    for(int i = 0; i < fileiras.length; i++){
-      System.out.print("FUNDAÇÃO " +  i + ": ");
-      fileiras[i].printarBaralho();
-    }
+    // for(int i = 0; i < fileiras.length; i++){
+    //   System.out.print("FUNDAÇÃO " +  i + ": ");
+    //   fileiras[i].printarBaralho();
+    // }
   }
 
 
