@@ -12,7 +12,19 @@ public class Remanecente {
     this.monteDeCompra = cartas;
     cartasCompradas = new ArrayList<Carta>();
   }
-
-  public Remanecente(){}
   
+  public void comprarCarta(){
+    if(monteDeCompra.size() > 0) {
+      Carta ultima = monteDeCompra.remove(monteDeCompra.size() -1);
+      ultima.mostrarCarta();
+      cartasCompradas.add(ultima);
+    }
+  }
+
+  public Carta getUltimaCartaComprada() { 
+    if(cartasCompradas.size() == 0){
+      return null;
+    }
+    return cartasCompradas.get(cartasCompradas.size() -1);
+  }
 }

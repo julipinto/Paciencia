@@ -48,9 +48,9 @@ public class Carta{
   @Override
   public String toString() {
     if(this.face){
-      return valor + " de " + simbolo;
+      return "[ " + valor + " de " + simbolo + " ]";
     }else{
-      return "[  X  ]";
+      return "[   XX   ]";
     }
     
   }
