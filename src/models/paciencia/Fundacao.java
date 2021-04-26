@@ -13,7 +13,7 @@ public class Fundacao extends ListaDeCartas {
   }
 
   public void inserirCarta(Carta carta){
-    if(!(this.length == 0 && carta.peso == 0)){
+    if(!(this.length() == 0 && carta.peso == 0)){
       // não pode inserir
       throw new Error("A carta inicial deve ser Ás");
     }

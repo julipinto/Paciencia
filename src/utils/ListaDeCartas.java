@@ -6,11 +6,9 @@ import models.Carta;
 
 public class ListaDeCartas {
   public ArrayList<Carta> cartas;
-  public int length;
 
   public ListaDeCartas(ArrayList<Carta> cartas) {
     this.cartas = cartas;
-    this.length = cartas.size();
   }
 
   public ListaDeCartas(){
@@ -22,8 +20,12 @@ public class ListaDeCartas {
     return fatia;
   }
 
+  public int length() {
+    return cartas.size();
+  }
+
   public Carta getUltimaCarta(){
-    return this.cartas.get(length);
+    return this.cartas.get(this.length());
   }
 
   public Carta get(int index){

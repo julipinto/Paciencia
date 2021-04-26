@@ -5,14 +5,16 @@ public class Carta{
   public final String valor;
   public final String simbolo;
   public final String cor;
+  public String ansiTerminalColor[];
   public boolean face;
   public final int peso;
 
-  public Carta(String naipe, String valor, String simbolo, String cor, int peso) {
+  public Carta(String naipe, String valor, String simbolo, String cor, String[] ansiTerminalColor, int peso) {
     this.naipe = naipe;
     this.valor = valor;
     this.simbolo = simbolo;
     this.cor = cor;
+    this.ansiTerminalColor = ansiTerminalColor;
     this.peso = peso;
     this.face = false;
   }
@@ -45,18 +47,34 @@ public class Carta{
     return false;
   }
 
+  private String consoleCarta(String content){
+    if(face){
+      return ansiTerminalColor[0] + "[" + content + "]" + ansiTerminalColor[1];
+    }else {
+      return "[" + content + "]";
+    }
+  }
+
   @Override
   public String toString() {
+    String content;
     if(this.face){
       if(valor.equals("10")){
         //diminuir um espaço para não quebrar no console com as cartas 10
-        return "[" + valor + " de " + simbolo + " ]";
+        content = valor + " de " + simbolo + " ";
+        // return "[" + valor + " de " + simbolo + " ]";
+      }else{
+        content = " " + valor + " de " + simbolo + " ";
       }
-      return "[ " + valor + " de " + simbolo + " ]";
+      // return "[ " + valor + " de " + simbolo + " ]";
     }else{
-      return "[   XX   ]";
+      content = "   XX   ";
+      // return "[   XX   ]";
     }
-    
+    return consoleCarta(content);
+
   }
+
+
 
 }

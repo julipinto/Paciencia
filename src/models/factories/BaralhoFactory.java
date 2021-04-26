@@ -27,15 +27,23 @@ public class BaralhoFactory {
         for(int j = 0; j < naipes.length; j++){
           String naipe = naipes[j];
           String simbolo = simbolos[j];
+        
           int peso = pesos[j];
 
+          String ansiReset = "\u001B[0m";
           for(String valor : valores){
 
             String cor = "preto";
+            String ansiCor = "\u001B[37m";
+
             if(naipe.equals("copas") || naipe.equals("ouros")){
              cor = "vermelho";
+             ansiCor = "\u001B[31m";
             }
-            cartas.add(new Carta(naipe, valor, simbolo, cor, peso));
+
+            String[] ansiTerminalColor = {ansiCor , ansiReset};
+
+            cartas.add(new Carta(naipe, valor, simbolo, cor, ansiTerminalColor,peso));
           }
         }
     }

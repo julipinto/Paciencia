@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import models.Baralho;
 import models.Carta;
@@ -24,6 +25,12 @@ public class PacienciaController {
   public void separarCartas(){
     int somaDeCartasDasFileiras = dividirFileiras();
     gerarRemanecente(somaDeCartasDasFileiras);
+  }
+
+  public void virarCartas(){
+    for(Carta c : baralho.cartas){
+      c.esconderCartat();
+    }
   }
 
 
