@@ -4,6 +4,7 @@ import controllers.PacienciaController;
 import models.Baralho;
 import models.Carta;
 import models.paciencia.Fileira;
+import models.paciencia.Remanecente;
 import utils.Jogo;
 
 public class Paciencia extends Jogo {
@@ -35,36 +36,66 @@ public class Paciencia extends Jogo {
   }
 
   public void printarJogo(){
-    System.out.println("----------------------------------------------------------------------------------------------------------------");
-    for(int i = 0; i < controller.fundacoes.length; i++){
+    imprimirSeparador(103, true);
+    imprimirFundacoes();
+    imprimirRemanecentes();
+    imprimirFileiras();
+    imprimirSeparador(103, true);
+  }
+
+  public void imprimirSeparador(int count, boolean tracejado){
+    String c = " ";
+    if(tracejado){
+      c = "-";
+    }
+    System.out.print(c.repeat(count));
+  }
+  
+  public void imprimirFundacoes(){
+    pularLinha();
+    int lengthFundacoes = controller.fundacoes.length;
+    int count = 51;
+    imprimirSeparador(count, false);
+    for(int i = 0; i < lengthFundacoes; i++){
+      System.out.print(" FUNDAÇÃO " + i + " |");
+    }
+    pularLinha();
+
+    imprimirSeparador(count, false);
+    for(int i = 0; i < lengthFundacoes; i++){
       if(controller.fundacoes[i] == null){
-        System.out.println("FUNDAÇÃO " + i + ": [        ]");
+        System.out.print(" [        ] |");
       }else {
-        System.out.println("FUNDAÇÃO " + i + ": [   XX   ]");
+        System.out.print(" [   XX   ] |");
       }      
     }
+    pularLinha();
+  }
 
-    int lengthMonteDeCompra = controller.remanecente.lenMonteDeCompra();
+  public void pularLinha(){
+    System.out.println("");
+  }
+
+  public void imprimirRemanecentes(){
+    Remanecente remanecente = controller.remanecente;
+    int lengthMonteDeCompra = remanecente.lenMonteDeCompra();
     if(lengthMonteDeCompra == 0){
-      System.out.println("MONTE DE COMPRA: [        ]");
+      System.out.println("\nMONTE DE COMPRA:  [        ] | (0 Cartas)");
     }else{
-      System.out.println("MONTE DE COMPRA: [   XX   ]  | (" + lengthMonteDeCompra + " Cartas)");
+      System.out.println("\nMONTE DE COMPRA:  [   XX   ]  | (" + lengthMonteDeCompra + " Cartas)");
     }
 
-    int lengthCartasCompradas = controller.remanecente.lenCartasCompradas();
-    Carta ultimaCartaComprada = controller.remanecente.getUltimaCartaComprada();
+    int lengthCartasCompradas = remanecente.lenCartasCompradas();
+    Carta ultimaCartaComprada = remanecente.getUltimaCartaComprada();
     if(ultimaCartaComprada == null){
-      System.out.println("CARTAS COMPRADAS: [        ]");
+      System.out.println("CARTAS COMPRADAS: [        ]  | (0 Cartas)");
     }else{
-      System.out.println("CARTAS COMPRADAS: " + ultimaCartaComprada.toString() + " | (" + lengthCartasCompradas + " Cartas)");
+      System.out.println("CARTAS COMPRADAS: " + ultimaCartaComprada.toString() + "  | (" + lengthCartasCompradas + " Cartas)");
     }
-    
-    System.out.println("\nFILEIRAS: ");
-
-    imprimirFileiras();
   }
 
   public void imprimirFileiras(){
+    System.out.println("\nFILEIRAS: ");
     imprimirIndicesFileiras();
     for(int i = 0; i < controller.maiorFileira; i++){
       for(Fileira fileira : controller.fileiras){
@@ -74,10 +105,9 @@ public class Paciencia extends Jogo {
         }
         else{
           System.out.print("            |  ");
-          // System.out.print("               ");
         }
       }
-      System.out.println("");
+      pularLinha();
     }
   }
 
@@ -146,7 +176,8 @@ public class Paciencia extends Jogo {
     System.out.println("7 - Cartas Compradas");
     System.out.println("8 - Voltar ao menu");
     int resposta = this.input.nextInt();
-    if(resposta <= 8 || resposta >= 0){
+    System.out.println(resposta < 8 || resposta >= 0);
+    if(resposta < 8 && resposta >= 0){
       if(resposta == 7){
         //move do monte
       }
@@ -165,10 +196,6 @@ public class Paciencia extends Jogo {
           if(indiceASerMovido < 0 || indiceASerMovido > f.length());
       }
     }
-
-  }
-
-  public void destino(){
 
   }
 }
