@@ -1,12 +1,12 @@
 package models;
 
 public class Carta{
-  private final String naipe;
-  private final String valor;
-  private final String simbolo;
-  private final String cor;
-  private boolean face;
-  private final int peso;
+  public final String naipe;
+  public final String valor;
+  public final String simbolo;
+  public final String cor;
+  public boolean face;
+  public final int peso;
 
   public Carta(String naipe, String valor, String simbolo, String cor, int peso) {
     this.naipe = naipe;
@@ -17,36 +17,20 @@ public class Carta{
     this.face = false;
   }
 
-  public String getNaipe() {
-    return naipe;
+  public void mostrarCarta(){
+    this.face = true;
   }
 
-  public String getValor() {
-    return valor;
+  public void esconderCartat(){
+    this.face = false;
   }
 
-  public int getPeso() {
-    return peso;
-  }
-
-  public String getSimbolo() {
-    return simbolo;
-  }
-
-  public boolean isFace() {
-    return face;
-  }
-
-  public void setFace(boolean face) {
-    this.face = face;
-  }
-
-  public int getDistancia(Carta carta, boolean considerarNaipe){
-    if(carta.getNaipe() != naipe && considerarNaipe){
+  public int medirtDistancia(Carta carta, boolean considerarNaipe){
+    if(carta.naipe != this.naipe && considerarNaipe){
       return -99;
     }
     else{
-      return peso - carta.getPeso();
+      return peso - this.peso;
     }
   }
   
@@ -54,7 +38,7 @@ public class Carta{
   public boolean equals(Object obj) {
     if(obj instanceof Carta){
       Carta nova = (Carta) obj;
-      if(naipe.equals(nova.getNaipe()) && this.valor.equals(nova.getValor())){
+      if(naipe.equals(nova.naipe) && this.valor.equals(nova.valor)){
         return true;
       }
     }
@@ -63,7 +47,12 @@ public class Carta{
 
   @Override
   public String toString() {
-    return valor + " de " + simbolo;
+    if(this.face){
+      return valor + " de " + simbolo;
+    }else{
+      return "[  X  ]";
+    }
+    
   }
 
 }

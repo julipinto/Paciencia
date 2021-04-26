@@ -2,6 +2,8 @@ package models;
 
 import java.util.ArrayList;
 
+import utils.ListaDeCartas;
+
 public class Baralho extends ListaDeCartas{
   public int length;
 

@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import models.Carta;
 
 public class Remanecente {
-  ArrayList<Carta> cartas = new ArrayList<Carta>();
+  public ArrayList<Carta> monteDeCompra;
+  public ArrayList<Carta> cartasCompradas;
 
   public Remanecente(ArrayList<Carta> cartas) {
-    this.cartas = cartas;
+    this.monteDeCompra = cartas;
+    cartasCompradas = new ArrayList<Carta>();
   }
 
   public Remanecente(){}
