@@ -7,7 +7,7 @@ import models.Carta;
 public class Remanecente {
   public ArrayList<Carta> monteDeCompra;
   public ArrayList<Carta> cartasCompradas;
-
+  
   public Remanecente(ArrayList<Carta> cartas) {
     this.monteDeCompra = cartas;
     cartasCompradas = new ArrayList<Carta>();
@@ -19,6 +19,13 @@ public class Remanecente {
       ultima.mostrarCarta();
       cartasCompradas.add(ultima);
     }
+  }
+
+  public int lenMonteDeCompra(){
+    return monteDeCompra.size();
+  }
+  public int lenCartasCompradas(){
+    return cartasCompradas.size();
   }
 
   public Carta getUltimaCartaComprada() { 

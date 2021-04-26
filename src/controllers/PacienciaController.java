@@ -13,6 +13,8 @@ public class PacienciaController {
   public Fileira fileiras[] = new Fileira[7];
   public Remanecente remanecente;
   public Baralho baralho;
+  //ATUALIZAR A VARIÁVEL TODA VEZ QUE ADICIONAR CARTAS
+  public int maiorFileira;
 
   public PacienciaController(Baralho baralho) {
     this.baralho = baralho;
@@ -34,6 +36,7 @@ public class PacienciaController {
       int qtd = i + 1;
       sum += qtd;
     }
+    maiorFileira = 7;
     return sum;
   }
 

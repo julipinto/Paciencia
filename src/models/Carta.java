@@ -48,6 +48,10 @@ public class Carta{
   @Override
   public String toString() {
     if(this.face){
+      if(valor.equals("10")){
+        //diminuir um espaço para não quebrar no console com as cartas 10
+        return "[" + valor + " de " + simbolo + " ]";
+      }
       return "[ " + valor + " de " + simbolo + " ]";
     }else{
       return "[   XX   ]";
