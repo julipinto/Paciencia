@@ -1,6 +1,6 @@
 package models;
 
-public class Carta{
+public class Carta {
   public final String naipe;
   public final String valor;
   public final String simbolo;
@@ -27,15 +27,24 @@ public class Carta{
     this.face = false;
   }
 
-  public int medirtDistancia(Carta carta, boolean considerarNaipe){
-    if(carta.naipe != this.naipe && considerarNaipe){
+  private int distancia(Carta carta){
+    return this.peso - carta.peso;
+  }
+
+  public int distanciaEntreNaipes(Carta carta){
+    if(this.naipe.equals(carta.naipe)){
       return -99;
     }
-    else{
-      return peso - this.peso;
-    }
+    return distancia(carta);
   }
-  
+
+  public int distanciaMesmoNaipe(Carta carta){
+    if(!this.naipe.equals(carta.naipe)){
+      return -99;
+    }
+    return distancia(carta);
+  }
+
   @Override
   public boolean equals(Object obj) {
     if(obj instanceof Carta){
@@ -62,19 +71,13 @@ public class Carta{
       if(valor.equals("10")){
         //diminuir um espaço para não quebrar no console com as cartas 10
         content = valor + " de " + simbolo + " ";
-        // return "[" + valor + " de " + simbolo + " ]";
       }else{
         content = " " + valor + " de " + simbolo + " ";
       }
-      // return "[ " + valor + " de " + simbolo + " ]";
     }else{
       content = "   XX   ";
-      // return "[   XX   ]";
     }
     return consoleCarta(content);
 
   }
-
-
-
 }
