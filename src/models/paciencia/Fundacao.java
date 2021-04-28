@@ -18,10 +18,10 @@ public class Fundacao extends ListaDeCartas {
       throw new Error("A carta inicial deve ser Ás");
     }
 
-    if(this.getUltimaCarta().medirtDistancia(carta, considerarNaipe) != 1){
-      // não pode inserir uma carta que seja diferente da sequencia
-      throw new Error("Não pode inserir uma carta que seja diferente da sequencia");
-    }
+    // if(this.getUltimaCarta().medirtDistancia(carta, considerarNaipe) != 1){
+    //   // não pode inserir uma carta que seja diferente da sequencia
+    //   throw new Error("Não pode inserir uma carta que seja diferente da sequencia");
+    // }
 
     this.cartas.add(carta);
   }

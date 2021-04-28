@@ -6,12 +6,11 @@ import models.Carta;
 import utils.ListaDeCartas;
 
 public class Fileira extends ListaDeCartas{
+  public int qtdCartasViradas;
 
   public Fileira(ArrayList<Carta> cartas) {
     super(cartas);
-  }
-
-  public Fileira() {}
-  
+    qtdCartasViradas = 1;
+  }  
   
 }

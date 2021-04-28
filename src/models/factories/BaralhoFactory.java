@@ -30,16 +30,16 @@ public class BaralhoFactory {
         
           int peso = pesos[j];
 
+          String cor = "preto";
+          String ansiCor = "\u001B[37m";
+
+          if(naipe.equals("paus") || naipe.equals("ouros")){
+            cor = "vermelho";
+            ansiCor = "\u001B[31m";
+           }
+
           String ansiReset = "\u001B[0m";
           for(String valor : valores){
-
-            String cor = "preto";
-            String ansiCor = "\u001B[37m";
-
-            if(naipe.equals("copas") || naipe.equals("ouros")){
-             cor = "vermelho";
-             ansiCor = "\u001B[31m";
-            }
 
             String[] ansiTerminalColor = {ansiCor , ansiReset};
 

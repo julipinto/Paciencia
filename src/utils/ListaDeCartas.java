@@ -25,7 +25,11 @@ public class ListaDeCartas {
   }
 
   public Carta getUltimaCarta(){
-    return this.cartas.get(this.length());
+    return this.cartas.get(this.length() -1);
+  }
+
+  public Carta getPrimeiraCarta(){
+    return this.cartas.get(0);
   }
 
   public Carta get(int index){

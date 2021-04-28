@@ -3,6 +3,7 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import errors.MovimentoInvalidoException;
 import models.Baralho;
 import models.Carta;
 import models.paciencia.Fileira;
@@ -50,6 +51,10 @@ public class PacienciaController {
   private void gerarRemanecente(int fromIndex){
     ArrayList<Carta> restoDoBaralho = this.baralho.fatiar(fromIndex, this.baralho.length -1);
     this.remanecente = new Remanecente(restoDoBaralho);
+  }
+
+  public Carta popCartasCompradas() throws MovimentoInvalidoException{
+    return this.remanecente.popCartasCompradas();
   }
 
 }

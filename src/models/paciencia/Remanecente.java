@@ -2,6 +2,7 @@ package models.paciencia;
 
 import java.util.ArrayList;
 
+import errors.MovimentoInvalidoException;
 import models.Carta;
 
 public class Remanecente {
@@ -21,6 +22,13 @@ public class Remanecente {
     }
   }
 
+  public Carta popCartasCompradas() throws MovimentoInvalidoException{
+    if(cartasCompradas.isEmpty()) {
+      throw new MovimentoInvalidoException("O monte de cartas compradas está vazio");
+    }
+    return cartasCompradas.remove(cartasCompradas.size() -1);
+  }
+
   public int lenMonteDeCompra(){
     return monteDeCompra.size();
   }
@@ -29,7 +37,7 @@ public class Remanecente {
   }
 
   public Carta getUltimaCartaComprada() { 
-    if(cartasCompradas.size() == 0){
+    if(cartasCompradas.isEmpty()){
       return null;
     }
     return cartasCompradas.get(cartasCompradas.size() -1);
