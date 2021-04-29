@@ -64,6 +64,9 @@ public class PacienciaController {
   public void moveUma(Object aMover, int destino) throws MovimentoInvalidoException{
     if(destino >= 0 && destino <= 6){
       fileiras[destino].addUma((Carta) aMover);
+      if(fileiras[destino].length() > maiorFileira){
+        maiorFileira = fileiras[destino].length();
+      }
     }
   }
 

@@ -59,19 +59,19 @@ public class Paciencia extends Jogo {
   public void imprimirFundacoes(){
     pularLinha();
     int lengthFundacoes = controller.fundacoes.length;
-    int count = 51;
+    int count = 42;
     imprimirSeparador(count, false);
     for(int i = 0; i < lengthFundacoes; i++){
-      System.out.print(" FUNDAÇÃO " + (i + 7) + " |");
+      System.out.print(" FUNDAÇÃO (" + (i + 7) + ") |");
     }
     pularLinha();
 
     imprimirSeparador(count, false);
     for(int i = 0; i < lengthFundacoes; i++){
       if(controller.fundacoes[i] == null){
-        System.out.print(" [        ] |");
+        System.out.print(" [          ] |");
       }else {
-        System.out.print(" [   XX   ] |");
+        System.out.print(" [    XX    ] |");
       }      
     }
     pularLinha();
@@ -165,9 +165,9 @@ public class Paciencia extends Jogo {
   }
 
   public int menuRestartarJogo(){
-    System.out.println("Você deseja reembaralhar o baralho?");
-    System.out.println("1 - SIM");
-    System.out.println("2 - NÃO");
+    System.out.println("Você deseja:");
+    System.out.println("1 - Recomeçar essa partida");
+    System.out.println("2 - Nova partida");
     System.out.println("3 - CANCELAR");
     int resposta = this.input.nextInt();
     return resposta;
