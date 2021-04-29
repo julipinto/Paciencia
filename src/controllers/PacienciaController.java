@@ -14,7 +14,6 @@ public class PacienciaController {
   public Fileira fileiras[] = new Fileira[7];
   public Remanecente remanecente;
   public Baralho baralho;
-  //ATUALIZAR A VARIÁVEL TODA VEZ QUE ADICIONAR CARTAS
   public int maiorFileira;
 
   public PacienciaController(Baralho baralho) {
@@ -60,13 +59,28 @@ public class PacienciaController {
     this.remanecente.cartasCompradas.add(c);
   }
 
-  public void moveUma(Object aMover, int destino) throws MovimentoInvalidoException{
+  public void moveUma(Carta aMover, int destino) throws MovimentoInvalidoException{
     if(destino >= 0 && destino <= 6){
-      fileiras[destino].addUma((Carta) aMover);
-      if(fileiras[destino].length() > maiorFileira){
-        maiorFileira = fileiras[destino].length();
+      fileiras[destino].addUma(aMover);
+      maiorFileira = calculaMaiorFileira();
+    }
+  }
+
+  public void moveVarias(ArrayList<Carta> cartas, int destino){
+    if(destino >= 0 && destino <= 6){
+      fileiras[destino].addVarias(cartas);
+      maiorFileira = calculaMaiorFileira();
+    }
+  }
+
+  public int calculaMaiorFileira(){
+    int maior = 0;
+    for (Fileira f: this.fileiras){
+      if(f.length() > maior){
+        maior = f.length();
       }
     }
+    return maior;
   }
 
 }

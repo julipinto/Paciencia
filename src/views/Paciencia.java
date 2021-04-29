@@ -1,5 +1,6 @@
 package views;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 import controllers.PacienciaController;
@@ -130,7 +131,7 @@ public class Paciencia extends Jogo {
   public boolean menuRodada(){
     System.out.println("\nSelecione uma opção");
     System.out.println("1 - Comprar carta");
-    System.out.println("2 - Mover carta");
+    System.out.println("2 - Mover carta(s)");
     System.out.println("3 - Exibir Jogo");
     System.out.println("4 - Reiniciar partida");
     System.out.println("5 - Finalizar o jogo");
@@ -179,7 +180,7 @@ public class Paciencia extends Jogo {
       return true;
     }
     restartGame = true;
-    if(resposta == 1){
+    if(resposta == 2){
       baralho.embaralhar();
     }
     controller.virarCartas();
@@ -202,65 +203,10 @@ public class Paciencia extends Jogo {
         moverCartaDoMonteComprado();
       }
       else{
-        moverCartaDasFileiras();
+        moverCartaDasFileiras(resposta);
       }
     }
   }
-  
-
-  // public void moverCarta(int resposta){
-  //   if(resposta < 8 && resposta >= 0){
-  //     printarJogo();
-
-  //     if(resposta == 7){
-  //       //move do monte
-  //       try {
-  //         Carta aMover = controller.popCartasCompradas();
-  //         int destino = menuDestinoMoverCarta();
-  //         controller.moveUma(aMover, destino);
-  //       }catch (MovimentoInvalidoException e) {
-  //         System.out.println(e.getMessage());
-  //         ErrorHandler.exception(e);
-  //       }
-
-  //       printarJogo();
-  //       System.exit(0);
-
-  //     }
-      // else {
-        // Fileira f = controller.fileiras[resposta];
-        // if(f.qtdCartasViradas == 1){
-        //   printarJogo();
-        //   Carta c = f.getUltimaCarta();
-        //   System.out.println("\nCarta: " + c.toString());
-        // }else{
-        //   System.out.println("\nA partir de qual carta da fileira " + resposta +" você deseja mover?");
-        //   System.out.println("\nA partir de qual carta da fileira " + resposta +" você deseja mover?");
-        //   int indiceASerMovido;
-        //   for(int i = 0; i < f.length(); i++){
-        //     Carta c = f.get(i);
-        //     if(c.face == true){
-        //       System.out.println(i + " - " + f.get(i));
-        //     }
-        //   }
-        //   indiceASerMovido = this.input.nextInt();
-        //     if(indiceASerMovido < 0 || indiceASerMovido > f.length());
-        // }
-        
-        // System.out.println("Para onde deseja mover?");
-        // System.exit(0);
-
-      // }
-
-      
-      // int destino = menuDestinoMoverCarta();
-      // if(destino >= 0 && destino <= 10){
-      //   controller.moveUma(aMover, destino);
-      // }
-    // }
-
-
-  // }
 
   public void moverCartaDoMonteComprado(){
     Carta aMover = null;
@@ -285,8 +231,55 @@ public class Paciencia extends Jogo {
     
   }
 
-  public void moverCartaDasFileiras(){
+  public void moverCartaDasFileiras(int indexFileira){
+    Fileira fileira = controller.fileiras[indexFileira];
 
+    int indiceASerMovido;
+    if(fileira.qtdCartasViradas == 1){
+      printarJogo();
+      indiceASerMovido = fileira.getUltimoIndex();
+      System.out.println("\nCarta: " + fileira.getUltimaCarta().toString());
+    }else{
+      System.out.println("\nA partir de qual carta da fileira " + indexFileira +" você deseja mover?");
+      int[] indexes = fileira.indexPrimeiraEUltimaCartaVirada();
+      int aux = indexes[0];
+      for(Carta c: fileira.getCartasViradas()){
+        System.out.println(aux + " - " + c.toString());
+        aux++;
+      }
+
+      indiceASerMovido = this.input.nextInt();
+
+      if(indiceASerMovido < indexes[0] || indiceASerMovido > indexes[1]){
+        try {
+          throw new MovimentoInvalidoException("O índice da fileira " + indexFileira + " deve estar entre od índices" + indexes[0] + " e " + indexes[1]);
+        } catch (MovimentoInvalidoException e) {
+          ErrorHandler.exception(e);
+          return;
+        }
+      }
+
+      System.out.print("\nCartas: ");
+      System.out.print(fileira.get(indexes[0]));
+      for(int i = indexes[0] + 1; i <= indexes[1]; i ++){
+        System.out.print(" + " + fileira.get(i));
+      }
+      pularLinha();
+    }
+    
+    System.out.println("Para onde deseja mover?");
+
+    int destino = menuDestinoMoverCarta();
+
+    ArrayList<Carta> aMover = fileira.fatiarAPartirDe(indiceASerMovido);
+    System.out.println(aMover.size());
+    if(destino >= 0 && destino <= 10){
+      controller.moveVarias(aMover, destino);
+    }
+
+    fileira.checkUltimaCarta();
+
+    printarJogo();
   }
 
   public int menuDestinoMoverCarta(){

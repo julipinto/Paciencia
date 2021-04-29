@@ -19,16 +19,4 @@ public class Baralho extends ListaDeCartas{
     Collections.shuffle(cartas);
   }
 
-  public void printarBaralho(){
-    for(Carta c : this.cartas){
-      System.out.print(c.toString() + " | ");
-    }
-    System.out.println("");
-    for(Carta c : this.cartas){
-      System.out.print("---------");
-    }  
-    System.out.print("-----------");                 
-    System.out.println();
-  }
-
 }
