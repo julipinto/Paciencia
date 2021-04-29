@@ -21,11 +21,4 @@ abstract public class Jogo {
   public void jogar() throws JogoNaoEncontradoException{
     throw new JogoNaoEncontradoException("Esse jogo não foi implementado");
   }
-
-  public void pressAnyKeyToContinue(){
-    System.out.print("Digite qualquer tecla para continuar");
-    try{
-      System.in.read();
-    }catch(Exception e){}
-  }
 }

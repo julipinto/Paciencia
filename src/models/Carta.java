@@ -1,5 +1,7 @@
 package models;
 
+import errors.MovimentoInvalidoException;
+
 public class Carta {
   public final String naipe;
   public final String valor;
@@ -28,12 +30,13 @@ public class Carta {
   }
 
   private int distancia(Carta carta){
-    return this.peso - carta.peso;
+
+    return carta.peso - this.peso;
   }
 
-  public int distanciaEntreNaipes(Carta carta){
-    if(this.naipe.equals(carta.naipe)){
-      return -99;
+  public int distanciaEntreCores(Carta carta) throws MovimentoInvalidoException{
+    if(this.cor.equals(carta.cor)){
+      throw new MovimentoInvalidoException("As cartas tem a mesma cor");
     }
     return distancia(carta);
   }

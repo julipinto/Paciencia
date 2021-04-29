@@ -35,4 +35,12 @@ public class ListaDeCartas {
   public Carta get(int index){
     return this.cartas.get(index);
   }
+
+  public void addUmaCartaNoFinal(Carta carta){
+    this.cartas.add(carta);
+  }
+
+  public void addVariasCartasNoFinal(ArrayList<Carta> cartas){
+    this.cartas.addAll(cartas);
+  }
 }

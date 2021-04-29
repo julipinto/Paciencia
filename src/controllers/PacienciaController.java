@@ -57,4 +57,14 @@ public class PacienciaController {
     return this.remanecente.popCartasCompradas();
   }
 
+  public void addCartaCompradas(Carta c){
+    this.remanecente.cartasCompradas.add(c);
+  }
+
+  public void moveUma(Object aMover, int destino) throws MovimentoInvalidoException{
+    if(destino >= 0 && destino <= 6){
+      fileiras[destino].addUma((Carta) aMover);
+    }
+  }
+
 }

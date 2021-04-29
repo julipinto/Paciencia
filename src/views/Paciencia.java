@@ -1,6 +1,9 @@
 package views;
 
+import java.util.InputMismatchException;
+
 import controllers.PacienciaController;
+import errors.ErrorHandler;
 import errors.MovimentoInvalidoException;
 import models.Baralho;
 import models.Carta;
@@ -59,7 +62,7 @@ public class Paciencia extends Jogo {
     int count = 51;
     imprimirSeparador(count, false);
     for(int i = 0; i < lengthFundacoes; i++){
-      System.out.print(" FUNDAÇÃO " + i + " |");
+      System.out.print(" FUNDAÇÃO " + (i + 7) + " |");
     }
     pularLinha();
 
@@ -195,18 +198,35 @@ public class Paciencia extends Jogo {
   public void moverCarta(int resposta){
     if(resposta < 8 && resposta >= 0){
       printarJogo();
-      Object aMover;
-
       if(resposta == 7){
-        //move do monte
-        try {
-          aMover = controller.popCartasCompradas();
-        } catch (MovimentoInvalidoException e) {
-          System.out.println(e.getMessage());
-          this.pressAnyKeyToContinue();
-        }
-
+        moverCartaDoMonteComprado();
       }
+      else{
+        moverCartaDasFileiras();
+      }
+    }
+  }
+  
+
+  // public void moverCarta(int resposta){
+  //   if(resposta < 8 && resposta >= 0){
+  //     printarJogo();
+
+  //     if(resposta == 7){
+  //       //move do monte
+  //       try {
+  //         Carta aMover = controller.popCartasCompradas();
+  //         int destino = menuDestinoMoverCarta();
+  //         controller.moveUma(aMover, destino);
+  //       }catch (MovimentoInvalidoException e) {
+  //         System.out.println(e.getMessage());
+  //         ErrorHandler.exception(e);
+  //       }
+
+  //       printarJogo();
+  //       System.exit(0);
+
+  //     }
       // else {
         // Fileira f = controller.fileiras[resposta];
         // if(f.qtdCartasViradas == 1){
@@ -231,9 +251,56 @@ public class Paciencia extends Jogo {
         // System.exit(0);
 
       // }
+
+      
+      // int destino = menuDestinoMoverCarta();
+      // if(destino >= 0 && destino <= 10){
+      //   controller.moveUma(aMover, destino);
+      // }
+    // }
+
+
+  // }
+
+  public void moverCartaDoMonteComprado(){
+    Carta aMover = null;
+    try {
+      aMover = controller.popCartasCompradas();
+    } catch (MovimentoInvalidoException e) {
+      ErrorHandler.exception(e);
     }
+
+    if(aMover != null){
+      int destino = menuDestinoMoverCarta();
+      
+      if(destino >= 0 && destino <= 10){
+        try {
+          controller.moveUma(aMover, destino);
+        } catch (MovimentoInvalidoException e) {
+          ErrorHandler.exception(e);
+          controller.addCartaCompradas(aMover);
+        }
+      }
+
+      printarJogo();
+
+      System.exit(0);
+    }
+    
+  }
+
+  public void moverCartaDasFileiras(){
 
   }
 
-  public void destinoMoverCarta(){}
+  public int menuDestinoMoverCarta(){
+    System.out.println("Para onde você deseja mover as cartas?");
+    System.out.println("[0 ~ 6] - Fileira (Digite o número correspondente ao índice da fileira");
+    System.out.println("[7 ~ 10] - Fundação (Digite o número correspondente ao índice da fundação");
+    System.out.println("Qualquer outra tecla para cancelar");
+    try{
+      return this.input.nextInt();
+    }catch(InputMismatchException e){}
+    return -99;
+  }
 }
