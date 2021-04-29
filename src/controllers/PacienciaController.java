@@ -18,6 +18,13 @@ public class PacienciaController {
 
   public PacienciaController(Baralho baralho) {
     this.baralho = baralho;
+    inicializarFundacoes();
+  }
+
+  private void inicializarFundacoes(){
+    for(int i=0; i <= 3; i++){
+      fundacoes[i] = new Fundacao();
+    }
   }
 
 
@@ -63,6 +70,8 @@ public class PacienciaController {
     if(destino >= 0 && destino <= 6){
       fileiras[destino].addUma(aMover);
       maiorFileira = calculaMaiorFileira();
+    }else if(destino >= 7 && destino <= 10){
+      fundacoes[destino - 7].inserirCarta(aMover);
     }
   }
 

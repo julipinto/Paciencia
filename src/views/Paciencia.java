@@ -69,10 +69,10 @@ public class Paciencia extends Jogo {
 
     imprimirSeparador(count, false);
     for(int i = 0; i < lengthFundacoes; i++){
-      if(controller.fundacoes[i] == null){
+      if(controller.fundacoes[i].isEmpty()){
         System.out.print(" [          ] |");
       }else {
-        System.out.print(" [    XX    ] |");
+        System.out.print("  " + controller.fundacoes[i].getUltimaCarta() + "  |");
       }      
     }
     pularLinha();
@@ -86,7 +86,7 @@ public class Paciencia extends Jogo {
     Remanecente remanecente = controller.remanecente;
     int lengthMonteDeCompra = remanecente.lenMonteDeCompra();
     if(lengthMonteDeCompra == 0){
-      System.out.println("\nMONTE DE COMPRA:  [        ] | (0 Cartas)");
+      System.out.println("\nMONTE DE COMPRA:  [        ]  | (0 Cartas)");
     }else{
       System.out.println("\nMONTE DE COMPRA:  [   XX   ]  | (" + lengthMonteDeCompra + " Cartas)");
     }
@@ -130,7 +130,7 @@ public class Paciencia extends Jogo {
 
   public boolean menuRodada(){
     System.out.println("\nSelecione uma opção");
-    System.out.println("1 - Comprar carta");
+    System.out.println("1 - Comprar carta / Recarregar Monte de Compra");
     System.out.println("2 - Mover carta(s)");
     System.out.println("3 - Exibir Jogo");
     System.out.println("4 - Reiniciar partida");
@@ -217,7 +217,7 @@ public class Paciencia extends Jogo {
     }
 
     if(aMover != null){
-      int destino = menuDestinoMoverCarta();
+      int destino = menuDestinoMoverCarta(true);
       
       if(destino >= 0 && destino <= 10){
         try {
@@ -269,12 +269,20 @@ public class Paciencia extends Jogo {
     
     System.out.println("Para onde deseja mover?");
 
-    int destino = menuDestinoMoverCarta();
-
+    
     ArrayList<Carta> aMover = fileira.fatiarAPartirDe(indiceASerMovido);
-    System.out.println(aMover.size());
-    if(destino >= 0 && destino <= 10){
-      controller.moveVarias(aMover, destino);
+
+    if(aMover.size() == 1){
+      int destino = menuDestinoMoverCarta(true);
+      if(destino >= 0 && destino <= 10){
+        try {
+          controller.moveUma(aMover.remove(0), destino);
+        } catch (MovimentoInvalidoException e) {
+          ErrorHandler.exception(e);
+        }
+      }
+    }else{
+      int destino = menuDestinoMoverCarta(false);
     }
 
     fileira.checkUltimaCarta();
@@ -282,10 +290,12 @@ public class Paciencia extends Jogo {
     printarJogo();
   }
 
-  public int menuDestinoMoverCarta(){
+  public int menuDestinoMoverCarta(boolean incluirFundacao){
     System.out.println("Para onde você deseja mover as cartas?");
     System.out.println("[0 ~ 6] - Fileira (Digite o número correspondente ao índice da fileira");
-    System.out.println("[7 ~ 10] - Fundação (Digite o número correspondente ao índice da fundação");
+    if(incluirFundacao){
+      System.out.println("[7 ~ 10] - Fundação (Digite o número correspondente ao índice da fundação");
+    }
     System.out.println("Qualquer outra tecla para cancelar");
     try{
       return this.input.nextInt();

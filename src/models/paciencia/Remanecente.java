@@ -1,6 +1,7 @@
 package models.paciencia;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import errors.MovimentoInvalidoException;
 import models.Carta;
@@ -19,6 +20,10 @@ public class Remanecente {
       Carta ultima = monteDeCompra.remove(monteDeCompra.size() -1);
       ultima.mostrarCarta();
       cartasCompradas.add(ultima);
+    }else{
+      Collections.reverse(cartasCompradas);
+      monteDeCompra = cartasCompradas;
+      cartasCompradas = new ArrayList<Carta>();
     }
   }
 

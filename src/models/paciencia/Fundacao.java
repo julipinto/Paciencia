@@ -2,6 +2,7 @@ package models.paciencia;
 
 import java.util.ArrayList;
 
+import errors.MovimentoInvalidoException;
 import models.Carta;
 import utils.ListaDeCartas;
 
@@ -12,18 +13,25 @@ public class Fundacao extends ListaDeCartas {
     cartas = new ArrayList<Carta>();
   }
 
-  public void inserirCarta(Carta carta){
-    if(!(this.length() == 0 && carta.peso == 0)){
-      // não pode inserir
-      throw new Error("A carta inicial deve ser Ás");
+  public void inserirCarta(Carta carta) throws MovimentoInvalidoException{
+    if(confereFundacaoVazia(carta)){
+      throw new MovimentoInvalidoException("A carta inicial de uma fundação deve ser Ás");
     }
 
-    // if(this.getUltimaCarta().medirtDistancia(carta, considerarNaipe) != 1){
-    //   // não pode inserir uma carta que seja diferente da sequencia
-    //   throw new Error("Não pode inserir uma carta que seja diferente da sequencia");
-    // }
+    if(!confereInsercao(carta)){
+      throw new MovimentoInvalidoException("Somente a carta seguinte do mesmo naipe pode ser inserida");
+    }
 
     this.cartas.add(carta);
+  }
+
+  private boolean confereFundacaoVazia(Carta carta){
+    return (this.isEmpty() && !carta.valor.equals("A"));
+  }
+
+  private boolean confereInsercao(Carta carta){
+    if(this.isEmpty()) return true;
+    return this.getUltimaCarta().distanciaMesmoNaipe(carta) == 1;
   }
   
 }
