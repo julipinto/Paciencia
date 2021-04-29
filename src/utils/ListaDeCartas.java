@@ -43,4 +43,8 @@ public class ListaDeCartas {
   public void addVariasCartasNoFinal(ArrayList<Carta> cartas){
     this.cartas.addAll(cartas);
   }
+
+  public boolean isEmpty(){
+    return this.cartas.isEmpty();
+  }
 }

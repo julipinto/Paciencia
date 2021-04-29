@@ -281,10 +281,6 @@ public class Paciencia extends Jogo {
           controller.addCartaCompradas(aMover);
         }
       }
-
-      printarJogo();
-
-      System.exit(0);
     }
     
   }

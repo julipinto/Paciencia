@@ -14,15 +14,16 @@ public class Fileira extends ListaDeCartas {
     qtdCartasViradas = 1;
   }
 
-  public void addUma(Carta c) throws MovimentoInvalidoException {
-    int distancia = c.distanciaEntreCores(this.getUltimaCarta());
-
-    System.out.println(distancia);
-    if(distancia == 1){
-      this.addUmaCartaNoFinal(c);
-    }else{
+  public void addUma(Carta carta) throws MovimentoInvalidoException {
+    if(this.isEmpty() && !carta.valor.equals('K')){
+      throw new MovimentoInvalidoException("A carta K só pode ser adicionada numa fileira vazia");
+    }
+    int distancia = carta.distanciaEntreCores(this.getUltimaCarta());
+    if(distancia != 1){
       throw new MovimentoInvalidoException("A carta não pode ser adicionada.");
     }
+
+    this.addUmaCartaNoFinal(carta);
   }
   
 }
