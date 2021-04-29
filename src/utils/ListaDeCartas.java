@@ -15,9 +15,9 @@ public class ListaDeCartas {
     cartas = new ArrayList<Carta>();
   }
 
-  public ArrayList<Carta> fatiar(int fromIndex, int toIndex) {
-    ArrayList<Carta> fatia = new ArrayList<Carta>(this.cartas.subList(fromIndex, toIndex + 1));
-    return fatia;
+  public ArrayList<Carta> subLista(int fromIndex, int toIndex) {
+    ArrayList<Carta> subLista = new ArrayList<Carta>(this.cartas.subList(fromIndex, toIndex + 1));
+    return subLista;
   }
 
   public int length() {

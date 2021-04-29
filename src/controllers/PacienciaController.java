@@ -1,7 +1,6 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import errors.MovimentoInvalidoException;
 import models.Baralho;
@@ -38,9 +37,9 @@ public class PacienciaController {
   private int dividirFileiras(){
     int sum = 0;
     for(int i = 0; i < 7; i++){
-      ArrayList<Carta> fatia = this.baralho.fatiar(sum, sum + i);
-      fatia.get(i).mostrarCarta();
-      this.fileiras[i] = new Fileira(fatia);
+      ArrayList<Carta> subLista = this.baralho.subLista(sum, sum + i);
+      subLista.get(i).mostrarCarta();
+      this.fileiras[i] = new Fileira(subLista);
       int qtd = i + 1;
       sum += qtd;
     }
@@ -49,7 +48,7 @@ public class PacienciaController {
   }
 
   private void gerarRemanecente(int fromIndex){
-    ArrayList<Carta> restoDoBaralho = this.baralho.fatiar(fromIndex, this.baralho.length -1);
+    ArrayList<Carta> restoDoBaralho = this.baralho.subLista(fromIndex, this.baralho.length -1);
     this.remanecente = new Remanecente(restoDoBaralho);
   }
 
