@@ -28,7 +28,6 @@ public class BaralhoFactory {
           String naipe = naipes[j];
           String simbolo = simbolos[j];
         
-          int peso = pesos[j];
 
           String cor = "preto";
           String ansiCor = "\u001B[37m";
@@ -39,11 +38,15 @@ public class BaralhoFactory {
            }
 
           String ansiReset = "\u001B[0m";
-          for(String valor : valores){
 
+          for(int k = 0; k < valores.length; k++){
+            String valor = valores[k];
+            int peso = pesos[k];
+            
             String[] ansiTerminalColor = {ansiCor , ansiReset};
 
             cartas.add(new Carta(naipe, valor, simbolo, cor, ansiTerminalColor,peso));
+
           }
         }
     }
