@@ -59,7 +59,7 @@ public class Paciencia extends Jogo {
   
   public void imprimirFundacoes(){
     pularLinha();
-    int lengthFundacoes = controller.fundacoes.length;
+    int lengthFundacoes = controller.qtdFundacoes();
     int count = 42;
     imprimirSeparador(count, false);
     for(int i = 0; i < lengthFundacoes; i++){
@@ -69,10 +69,10 @@ public class Paciencia extends Jogo {
 
     imprimirSeparador(count, false);
     for(int i = 0; i < lengthFundacoes; i++){
-      if(controller.fundacoes[i].isEmpty()){
+      if(controller.fundacaoIndexIsEmpty(i)){
         System.out.print(" [          ] |");
       }else {
-        System.out.print("  " + controller.fundacoes[i].getUltimaCarta() + "  |");
+        System.out.print("  " + controller.getUltitmaCartaFundacaoIndex(i) + "  |");
       }      
     }
     pularLinha();
@@ -83,16 +83,16 @@ public class Paciencia extends Jogo {
   }
 
   public void imprimirRemanecentes(){
-    Remanecente remanecente = controller.remanecente;
-    int lengthMonteDeCompra = remanecente.lenMonteDeCompra();
+    int lengthMonteDeCompra = controller.lenMonteDeCompra();
+    pularLinha();
     if(lengthMonteDeCompra == 0){
-      System.out.println("\nMONTE DE COMPRA:  [        ]  | (0 Cartas)");
+      System.out.println("MONTE DE COMPRA:  [        ]  | (0 Cartas)");
     }else{
-      System.out.println("\nMONTE DE COMPRA:  [   XX   ]  | (" + lengthMonteDeCompra + " Cartas)");
+      System.out.println("MONTE DE COMPRA:  [   XX   ]  | (" + lengthMonteDeCompra + " Cartas)");
     }
 
-    int lengthCartasCompradas = remanecente.lenCartasCompradas();
-    Carta ultimaCartaComprada = remanecente.getUltimaCartaComprada();
+    int lengthCartasCompradas = controller.lenCartasCompradas();
+    Carta ultimaCartaComprada = controller.getUltimaCartaComprada();
     if(ultimaCartaComprada == null){
       System.out.println("CARTAS COMPRADAS: [        ]  | (0 Cartas)");
     }else{
@@ -150,6 +150,9 @@ public class Paciencia extends Jogo {
         moverCarta(moverCartaOption);
       }
       break;
+      case 3: {
+        return true;
+      }
       case 4: {
         int restartBaralho = menuRestartarJogo();
         return opcoesRestartarJogo(restartBaralho);

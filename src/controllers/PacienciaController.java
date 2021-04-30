@@ -92,4 +92,28 @@ public class PacienciaController {
     return maior;
   }
 
+  public int qtdFundacoes() {
+    return fileiras.length;
+  }
+
+  public boolean fundacaoIndexIsEmpty(int index) {
+    return fundacoes[index].isEmpty();
+  }
+
+  public Carta getUltitmaCartaFundacaoIndex(int index) {
+    return fundacoes[index].getUltimaCarta();
+  }
+
+  public int lenMonteDeCompra() {
+    return remanecente.lenMonteDeCompra();
+  }
+
+  public int lenCartasCompradas() {
+     return remanecente.lenCartasCompradas();
+  }
+
+  public Carta getUltimaCartaComprada(){
+    return remanecente.getUltimaCartaComprada();
+  }
+
 }
