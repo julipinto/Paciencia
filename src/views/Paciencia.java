@@ -172,9 +172,8 @@ public class Paciencia extends Jogo {
         }
       }
       default:
-        return false;
+        return true;
     }
-
     return true;
   }
 
@@ -274,15 +273,12 @@ public class Paciencia extends Jogo {
       }
 
       System.out.print("\nCartas: ");
-      System.out.print(fileira.get(indexes[0]));
-      for(int i = indexes[0] + 1; i <= indexes[1]; i ++){
+      System.out.print(fileira.get(indiceASerMovido));
+      for(int i = indiceASerMovido + 1; i <= indexes[1]; i ++){
         System.out.print(" + " + fileira.get(i));
       }
       pularLinha();
     }
-    
-    System.out.println("Para onde deseja mover?");
-
     
     ArrayList<Carta> aMover = fileira.fatiarAPartirDe(indiceASerMovido);
 
@@ -290,18 +286,27 @@ public class Paciencia extends Jogo {
       int destino = menuDestinoMoverCarta(true);
       if(destino >= 0 && destino <= 10){
         try {
-          controller.moveUma(aMover.remove(0), destino);
+          controller.moveUma(aMover.get(0), destino);
         } catch (MovimentoInvalidoException e) {
+          fileira.addVarias(aMover);
           ErrorHandler.exception(e);
         }
       }
     }else{
       int destino = menuDestinoMoverCarta(false);
+      if(destino >= 0 && destino <= 6){
+        controller.moveVarias(aMover, destino);
+      }else if(destino >= 7 && destino <= 10) {
+        try {
+          throw new MovimentoInvalidoException("Várias cartas não podem ser movimentadas para as fundações");
+        } catch (MovimentoInvalidoException e) {
+          fileira.addVarias(aMover);
+          ErrorHandler.exception(e);
+        }
+      }
     }
 
     fileira.checkUltimaCarta();
-
-    printarJogo();
   }
 
   public int menuDestinoMoverCarta(boolean incluirFundacao){
