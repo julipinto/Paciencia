@@ -93,7 +93,7 @@ public class PacienciaController {
   }
 
   public int qtdFundacoes() {
-    return fileiras.length;
+    return fundacoes.length;
   }
 
   public boolean fundacaoIndexIsEmpty(int index) {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 import controllers.PacienciaController;
+import errors.EntradaInválidaException;
 import errors.ErrorHandler;
 import errors.MovimentoInvalidoException;
 import models.Baralho;
@@ -135,7 +136,8 @@ public class Paciencia extends Jogo {
     System.out.println("3 - Exibir Jogo");
     System.out.println("4 - Reiniciar partida");
     System.out.println("5 - Finalizar o jogo");
-    int resposta = this.input.nextInt();
+    // int resposta = this.input.nextInt();
+    int resposta = this.inputInt();
     return opcoesRodada(resposta);
   }
 
@@ -161,6 +163,14 @@ public class Paciencia extends Jogo {
         System.exit(0);
         return false;
       }
+      case -99: {
+        try {
+          throw new EntradaInválidaException("Entrada não suportada");
+        } catch (EntradaInválidaException e) {
+          ErrorHandler.exception(e);
+          return true;
+        }
+      }
       default:
         return false;
     }
@@ -173,7 +183,7 @@ public class Paciencia extends Jogo {
     System.out.println("1 - Recomeçar essa partida");
     System.out.println("2 - Nova partida");
     System.out.println("3 - CANCELAR");
-    int resposta = this.input.nextInt();
+    int resposta = this.inputInt();
     return resposta;
   }
 
@@ -196,7 +206,8 @@ public class Paciencia extends Jogo {
     System.out.println("[0 ~ 6] - Fileira (Digite o número correspondente ao índice da fileira");
     System.out.println("7 - Cartas Compradas");
     System.out.println("8 - Voltar ao menu");
-    return this.input.nextInt();
+    int resposta = this.inputInt();
+    return resposta;
   }
 
   public void moverCarta(int resposta){
@@ -251,7 +262,7 @@ public class Paciencia extends Jogo {
         aux++;
       }
 
-      indiceASerMovido = this.input.nextInt();
+      indiceASerMovido = this.inputInt();
 
       if(indiceASerMovido < indexes[0] || indiceASerMovido > indexes[1]){
         try {
@@ -300,9 +311,8 @@ public class Paciencia extends Jogo {
       System.out.println("[7 ~ 10] - Fundação (Digite o número correspondente ao índice da fundação");
     }
     System.out.println("Qualquer outra tecla para cancelar");
-    try{
-      return this.input.nextInt();
-    }catch(InputMismatchException e){}
-    return -99;
+
+    return this.inputInt();
+  
   }
 }

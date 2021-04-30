@@ -1,5 +1,6 @@
 package utils;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import errors.JogoNaoEncontradoException;
@@ -7,7 +8,7 @@ import models.Baralho;
 
 abstract public class Jogo {
   public Baralho baralho;
-  public Scanner input; 
+  private Scanner input; 
 
   public Jogo(Baralho baralho){
     this.baralho = baralho;
@@ -20,5 +21,15 @@ abstract public class Jogo {
 
   public void jogar() throws JogoNaoEncontradoException{
     throw new JogoNaoEncontradoException("Esse jogo não foi implementado");
+  }
+
+  public int inputInt(){
+    try {
+      int nextInt = input.nextInt();
+      return nextInt;
+    } catch (InputMismatchException e) {
+      this.input.next();
+      return -99;
+    }
   }
 }
