@@ -36,7 +36,34 @@ public class Paciencia extends Jogo {
       printarJogo();
       continuar = menuRodada();
 
+      if(controller.venceuOJogo()){
+        continuar = parabenizar();
+      }
+
     } while (continuar);
+  }
+
+  public boolean parabenizar(){
+    imprimirSeparador(103, true);
+    pularLinha();
+    imprimirSeparador(103, true);
+    pularLinha();
+    pularLinha();
+    System.out.println("PARABÉNS, VOCÊ VENCEU O JOGO!");
+    pularLinha();
+    pularLinha();
+    imprimirSeparador(103, true);
+    pularLinha();
+    imprimirSeparador(103, true);
+    pularLinha();
+    pularLinha();
+    System.out.println("Você deseja jogar uma nova partida?");
+    int resposta = this.inputInt();
+    if(resposta == 1){
+      baralho.embaralhar();
+      return true;
+    }
+    return false;
   }
 
   public void printarJogo(){

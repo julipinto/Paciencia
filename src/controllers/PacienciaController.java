@@ -27,6 +27,15 @@ public class PacienciaController {
     }
   }
 
+  public boolean venceuOJogo(){
+    int count = 0;
+    for(Fundacao f: fundacoes){
+      count += f.length();
+    }
+    return count == baralho.length();
+  }
+
+
   public void inicializarPartida(){
     separarCartas();
     inicializarFundacoes();
@@ -59,7 +68,7 @@ public class PacienciaController {
   }
 
   private void gerarRemanecente(int fromIndex){
-    ArrayList<Carta> restoDoBaralho = this.baralho.subLista(fromIndex, this.baralho.length -1);
+    ArrayList<Carta> restoDoBaralho = this.baralho.subLista(fromIndex, this.baralho.length() -1);
     this.remanecente = new Remanecente(restoDoBaralho);
   }
 
