@@ -45,7 +45,10 @@ public class ListaDeCartas {
   }
 
   public Carta getUltimaCarta(){
-    return this.cartas.get(this.getUltimoIndex());
+    if(!isEmpty()){
+      return this.cartas.get(this.getUltimoIndex());
+    }
+    return null;
   }
 
   public Carta getPrimeiraCarta(){

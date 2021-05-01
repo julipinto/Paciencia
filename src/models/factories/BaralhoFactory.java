@@ -7,8 +7,8 @@ import models.Baralho;
 import models.Carta;
 
 public class BaralhoFactory {
-  private final String[] naipes = {"espadas", "copas", "paus", "ouros"};
-  private final String[] simbolos = {"♠", "♣", "♥", "♦"};
+  private final String[] naipes = {"copas", "espadas", "ouros", "paus"};
+  private final String[] simbolos = {"♥", "♠", "♦", "♣"};
   private final String[] valores = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
   private final int[] pesos = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
   private int quantidadeDeBaralhos = 1;
@@ -32,7 +32,7 @@ public class BaralhoFactory {
           String cor = "preto";
           String ansiCor = "\u001B[37m";
 
-          if(naipe.equals("paus") || naipe.equals("ouros")){
+          if(naipe.equals("copas") || naipe.equals("ouros")){
             cor = "vermelho";
             ansiCor = "\u001B[31m";
            }

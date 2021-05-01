@@ -27,6 +27,11 @@ public class PacienciaController {
     }
   }
 
+  public void inicializarPartida(){
+    separarCartas();
+    inicializarFundacoes();
+  }
+
 
   public void separarCartas(){
     int somaDeCartasDasFileiras = dividirFileiras();
@@ -75,7 +80,7 @@ public class PacienciaController {
     }
   }
 
-  public void moveVarias(ArrayList<Carta> cartas, int destino){
+  public void moveVarias(ArrayList<Carta> cartas, int destino) throws MovimentoInvalidoException{
     if(destino >= 0 && destino <= 6){
       fileiras[destino].addVarias(cartas);
       maiorFileira = calculaMaiorFileira();

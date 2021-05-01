@@ -1,7 +1,6 @@
 package views;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 
 import controllers.PacienciaController;
 import errors.EntradaInválidaException;
@@ -10,7 +9,6 @@ import errors.MovimentoInvalidoException;
 import models.Baralho;
 import models.Carta;
 import models.paciencia.Fileira;
-import models.paciencia.Remanecente;
 import utils.Jogo;
 
 public class Paciencia extends Jogo {
@@ -32,7 +30,7 @@ public class Paciencia extends Jogo {
   }
 
   public void fluxoDeJogo(){
-    controller.separarCartas();
+    controller.inicializarPartida();
     boolean continuar = true;
     do {
       printarJogo();
@@ -136,7 +134,6 @@ public class Paciencia extends Jogo {
     System.out.println("3 - Exibir Jogo");
     System.out.println("4 - Reiniciar partida");
     System.out.println("5 - Finalizar o jogo");
-    // int resposta = this.input.nextInt();
     int resposta = this.inputInt();
     return opcoesRodada(resposta);
   }
@@ -225,6 +222,7 @@ public class Paciencia extends Jogo {
     Carta aMover = null;
     try {
       aMover = controller.popCartasCompradas();
+      System.out.println("\nCarta: " + aMover);
     } catch (MovimentoInvalidoException e) {
       ErrorHandler.exception(e);
     }
@@ -248,59 +246,61 @@ public class Paciencia extends Jogo {
     Fileira fileira = controller.fileiras[indexFileira];
 
     int indiceASerMovido;
-    if(fileira.qtdCartasViradas == 1){
-      printarJogo();
+
+    if(fileira.qtdCartasViradas() == 1){
       indiceASerMovido = fileira.getUltimoIndex();
       System.out.println("\nCarta: " + fileira.getUltimaCarta().toString());
+
     }else{
-      System.out.println("\nA partir de qual carta da fileira " + indexFileira +" você deseja mover?");
-      int[] indexes = fileira.indexPrimeiraEUltimaCartaVirada();
-      int aux = indexes[0];
-      for(Carta c: fileira.getCartasViradas()){
-        System.out.println(aux + " - " + c.toString());
-        aux++;
+      try {
+        indiceASerMovido = fromIndexFileiraASerMovido(fileira, indexFileira);
+      } catch (MovimentoInvalidoException e) {
+        ErrorHandler.exception(e);
+        return;
       }
-
-      indiceASerMovido = this.inputInt();
-
-      if(indiceASerMovido < indexes[0] || indiceASerMovido > indexes[1]){
-        try {
-          throw new MovimentoInvalidoException("O índice da fileira " + indexFileira + " deve estar entre od índices" + indexes[0] + " e " + indexes[1]);
-        } catch (MovimentoInvalidoException e) {
-          ErrorHandler.exception(e);
-          return;
-        }
-      }
-
-      System.out.print("\nCartas: ");
-      System.out.print(fileira.get(indiceASerMovido));
-      for(int i = indiceASerMovido + 1; i <= indexes[1]; i ++){
-        System.out.print(" + " + fileira.get(i));
-      }
-      pularLinha();
     }
     
     ArrayList<Carta> aMover = fileira.fatiarAPartirDe(indiceASerMovido);
 
     if(aMover.size() == 1){
       int destino = menuDestinoMoverCarta(true);
+
+      if(destino == indexFileira){
+        fileira.forcarAddVarias(aMover);
+        return;
+      }
+
+
       if(destino >= 0 && destino <= 10){
         try {
           controller.moveUma(aMover.get(0), destino);
         } catch (MovimentoInvalidoException e) {
-          fileira.addVarias(aMover);
+          fileira.forcarAddVarias(aMover);
           ErrorHandler.exception(e);
         }
       }
+      
     }else{
       int destino = menuDestinoMoverCarta(false);
+
+      if(destino == indexFileira){
+        fileira.forcarAddVarias(aMover);
+        return;
+      }
+
       if(destino >= 0 && destino <= 6){
-        controller.moveVarias(aMover, destino);
+
+        try {
+          controller.moveVarias(aMover, destino);
+        } catch (MovimentoInvalidoException e) {
+          fileira.forcarAddVarias(aMover);
+          ErrorHandler.exception(e);
+        }
       }else if(destino >= 7 && destino <= 10) {
         try {
           throw new MovimentoInvalidoException("Várias cartas não podem ser movimentadas para as fundações");
         } catch (MovimentoInvalidoException e) {
-          fileira.addVarias(aMover);
+          fileira.forcarAddVarias(aMover);
           ErrorHandler.exception(e);
         }
       }
@@ -309,8 +309,34 @@ public class Paciencia extends Jogo {
     fileira.checkUltimaCarta();
   }
 
+  public int fromIndexFileiraASerMovido(Fileira fileira, int indexFileira) throws MovimentoInvalidoException{
+    System.out.println("\nA partir de qual carta da fileira " + indexFileira +" você deseja mover?");
+    int[] indexes = fileira.indexPrimeiraEUltimaCartaVirada();
+    int aux = indexes[0];
+    for(Carta c: fileira.getCartasViradas()){
+      System.out.println(aux + " - " + c.toString());
+      aux++;
+    }
+
+    int indiceASerMovido = this.inputInt();
+
+    if(indiceASerMovido < indexes[0] || indiceASerMovido > indexes[1]){
+      throw new MovimentoInvalidoException("O índice da fileira " + indexFileira + " deve estar entre os índices " + indexes[0] + " e " + indexes[1]);
+    }
+
+    printarJogo();
+    System.out.print("\nCartas: ");
+    System.out.print(fileira.get(indiceASerMovido));
+    for(int i = indiceASerMovido + 1; i <= indexes[1]; i ++){
+      System.out.print(" + " + fileira.get(i));
+    }
+    pularLinha();
+
+    return indiceASerMovido;
+  }
+
   public int menuDestinoMoverCarta(boolean incluirFundacao){
-    System.out.println("Para onde você deseja mover as cartas?");
+    System.out.println("Para onde você deseja mover a(s) carta(s)?");
     System.out.println("[0 ~ 6] - Fileira (Digite o número correspondente ao índice da fileira");
     if(incluirFundacao){
       System.out.println("[7 ~ 10] - Fundação (Digite o número correspondente ao índice da fundação");
@@ -318,6 +344,5 @@ public class Paciencia extends Jogo {
     System.out.println("Qualquer outra tecla para cancelar");
 
     return this.inputInt();
-  
   }
 }
