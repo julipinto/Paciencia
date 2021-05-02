@@ -1,7 +1,7 @@
 import models.Baralho;
+import models.Jogo;
 import models.factories.BaralhoFactory;
 import models.factories.JogoFactory;
-import utils.Jogo;
 
 public class App {
     public static void main(String[] args) throws Exception {

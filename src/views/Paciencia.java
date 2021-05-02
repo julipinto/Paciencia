@@ -8,8 +8,8 @@ import errors.ErrorHandler;
 import errors.MovimentoInvalidoException;
 import models.Baralho;
 import models.Carta;
+import models.Jogo;
 import models.paciencia.Fileira;
-import utils.Jogo;
 
 public class Paciencia extends Jogo {
   private PacienciaController controller;
@@ -261,7 +261,7 @@ public class Paciencia extends Jogo {
     if(resposta == 2){
       baralho.embaralhar();
     }
-    controller.virarCartas();
+    controller.esconderTodasAsCartas();
     return false;
   }
 

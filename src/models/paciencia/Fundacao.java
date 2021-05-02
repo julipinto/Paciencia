@@ -4,10 +4,9 @@ import java.util.ArrayList;
 
 import errors.MovimentoInvalidoException;
 import models.Carta;
-import utils.ListaDeCartas;
+import models.ListaDeCartas;
 
 public class Fundacao extends ListaDeCartas {
-  boolean considerarNaipe = true;
 
   public Fundacao() {
     cartas = new ArrayList<Carta>();

@@ -2,7 +2,7 @@ package models.factories;
 
 import errors.JogoNaoEncontradoException;
 import models.Baralho;
-import utils.Jogo;
+import models.Jogo;
 import views.Paciencia;
 
 abstract public class JogoFactory {

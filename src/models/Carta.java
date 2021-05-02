@@ -25,12 +25,11 @@ public class Carta {
     this.face = true;
   }
 
-  public void esconderCartat(){
+  public void esconderCarta(){
     this.face = false;
   }
 
   private int distancia(Carta carta){
-
     return carta.peso - this.peso;
   }
 
@@ -46,17 +45,6 @@ public class Carta {
       return -99;
     }
     return distancia(carta);
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if(obj instanceof Carta){
-      Carta nova = (Carta) obj;
-      if(naipe.equals(nova.naipe) && this.valor.equals(nova.valor)){
-        return true;
-      }
-    }
-    return false;
   }
 
   private String consoleCarta(String content){

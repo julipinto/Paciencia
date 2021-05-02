@@ -1,21 +1,16 @@
 package models.paciencia;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import errors.MovimentoInvalidoException;
 import models.Carta;
-import utils.ListaDeCartas;
+import models.ListaDeCartas;
 
 public class Remanecente {
   public ListaDeCartas monteDeCompra;
   public ListaDeCartas cartasCompradas;
   public int modoJogo;
-  
-  // public Remanecente(ArrayList<Carta> cartas) {
-  //   this.monteDeCompra = cartas;
-  //   cartasCompradas = new ArrayList<Carta>();
-  // }
+
   public Remanecente(ArrayList<Carta> cartas) {
     for(Carta carta: cartas){
       carta.mostrarCarta();
@@ -24,7 +19,6 @@ public class Remanecente {
     this.cartasCompradas = new ListaDeCartas();
   }
 
-
   public int getModoJogo() {
     return this.modoJogo;
   }
@@ -32,7 +26,6 @@ public class Remanecente {
   public void setModoJogo(int modoJogo) {
     this.modoJogo = modoJogo;
   }
-  
   
   public void comprarCarta(){
     if(monteDeCompra.length() > 0) {

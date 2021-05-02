@@ -1,8 +1,6 @@
 package models.factories;
 
 import java.util.ArrayList;
-import java.util.Collections;
-
 import models.Baralho;
 import models.Carta;
 
@@ -51,16 +49,13 @@ public class BaralhoFactory {
         }
     }
 
-    if(embaralhado){
-      Collections.shuffle(cartas);
-    }
     
     this.baralho = new Baralho(cartas);
+    
+    if(embaralhado){
+      baralho.embaralhar();
+    }
 
     return baralho;
   }
-
-  public Baralho getBaralho() {
-    return baralho;
-  }  
 }

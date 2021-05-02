@@ -47,9 +47,9 @@ public class PacienciaController {
     gerarRemanecente(somaDeCartasDasFileiras);
   }
 
-  public void virarCartas(){
+  public void esconderTodasAsCartas(){
     for(Carta c : baralho.cartas){
-      c.esconderCartat();
+      c.esconderCarta();
     }
   }
 

@@ -1,9 +1,7 @@
-package utils;
+package models;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
-import models.Carta;
 
 public class ListaDeCartas {
   public ArrayList<Carta> cartas;

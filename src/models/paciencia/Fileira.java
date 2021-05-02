@@ -4,10 +4,9 @@ import java.util.ArrayList;
 
 import errors.MovimentoInvalidoException;
 import models.Carta;
-import utils.ListaDeCartas;
+import models.ListaDeCartas;
 
 public class Fileira extends ListaDeCartas {
-  public int qtdCartasViradas;
 
   public Fileira(ArrayList<Carta> cartas) {
     super(cartas);
@@ -23,7 +22,6 @@ public class Fileira extends ListaDeCartas {
     }
 
     this.addUmaCartaNoFinal(carta);
-    qtdCartasViradas += 1;
   }
 
   public void addVarias(ArrayList<Carta> cartas) throws MovimentoInvalidoException{
