@@ -3,7 +3,7 @@ package views;
 import java.util.ArrayList;
 
 import controllers.PacienciaController;
-import errors.EntradaInválidaException;
+import errors.EntradaInvalidaException;
 import errors.ErrorHandler;
 import errors.MovimentoInvalidoException;
 import models.Baralho;
@@ -231,8 +231,8 @@ public class Paciencia extends Jogo {
       }
       case -99: {
         try {
-          throw new EntradaInválidaException("Entrada não suportada");
-        } catch (EntradaInválidaException e) {
+          throw new EntradaInvalidaException("Entrada não suportada");
+        } catch (EntradaInvalidaException e) {
           ErrorHandler.exception(e);
           return true;
         }
