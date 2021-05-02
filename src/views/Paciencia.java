@@ -22,7 +22,6 @@ public class Paciencia extends Jogo {
  
   @Override
   public void jogar() {
-
     do {
       restartGame = false;
       fluxoDeJogo();
@@ -31,10 +30,12 @@ public class Paciencia extends Jogo {
 
   public void fluxoDeJogo(){
     controller.inicializarPartida();
+    modoJogo();
     boolean continuar = true;
     do {
       printarJogo();
       continuar = menuRodada();
+
 
       if(controller.venceuOJogo()){
         continuar = parabenizar();
@@ -43,21 +44,45 @@ public class Paciencia extends Jogo {
     } while (continuar);
   }
 
+  public void modoJogo(){
+    int modoJogo = 1;
+    imprimirSeparador(103, true);
+    pularLinha();
+    imprimirSeparador(103, true);
+    pularLinha(3);
+    System.out.println("\tJOGUE PACIÊNCIA");
+    pularLinha(2);
+    imprimirSeparador(103, true);
+    pularLinha();
+    imprimirSeparador(103, true);
+    pularLinha(2);
+    System.out.println("Em qual modo você deseja jogar?");
+    System.out.println("1 - Vire uma carta (Médio)  [Default]");
+    System.out.println("2 - Vire três cartas (Difícil)");
+    System.out.println("[ATENÇÃO]: no Vire três cartas, ao selecionar uma carta do monte para movimentar");
+    System.out.println("será puxada a ultima carta.");
+    int resposta = this.inputInt();
+    if(resposta == 2){
+      modoJogo = 3;
+    }
+    controller.setModoJogo(modoJogo);
+  }
+
   public boolean parabenizar(){
+    printarJogo();
     imprimirSeparador(103, true);
-    pularLinha();
-    imprimirSeparador(103, true);
-    pularLinha();
-    pularLinha();
+    pularLinha(3);
     System.out.println("PARABÉNS, VOCÊ VENCEU O JOGO!");
-    pularLinha();
-    pularLinha();
+    pularLinha(2);
     imprimirSeparador(103, true);
     pularLinha();
     imprimirSeparador(103, true);
-    pularLinha();
-    pularLinha();
+    pularLinha(2);
+    
     System.out.println("Você deseja jogar uma nova partida?");
+    System.out.println("1 - Sim");
+    System.out.println("2 - Não");
+
     int resposta = this.inputInt();
     if(resposta == 1){
       baralho.embaralhar();
@@ -108,22 +133,39 @@ public class Paciencia extends Jogo {
     System.out.println("");
   }
 
-  public void imprimirRemanecentes(){
-    int lengthMonteDeCompra = controller.lenMonteDeCompra();
-    pularLinha();
-    if(lengthMonteDeCompra == 0){
-      System.out.println("MONTE DE COMPRA:  [        ]  | (0 Cartas)");
-    }else{
-      System.out.println("MONTE DE COMPRA:  [   XX   ]  | (" + lengthMonteDeCompra + " Cartas)");
+  public void pularLinha(int qtdLinhas){
+    for(int i=0; i<qtdLinhas; i++){
+      System.out.println("");
     }
+  }
+
+  public void imprimirRemanecentes(){
+    pularLinha();
+    String refAPrintar;
+    String refVazio = "[        ]";
+    String refVirado = "[   XX   ]";
+    
+    //Printando o monte de compra 
+    int lengthMonteDeCompra = controller.lenMonteDeCompra();
+    refAPrintar = refVirado;
+    if(lengthMonteDeCompra == 0) refAPrintar = refVazio;
+    
+    System.out.println("MONTE DE COMPRA:  " + refAPrintar + "  | (" + lengthMonteDeCompra + " Cartas)");
+
 
     int lengthCartasCompradas = controller.lenCartasCompradas();
-    Carta ultimaCartaComprada = controller.getUltimaCartaComprada();
-    if(ultimaCartaComprada == null){
-      System.out.println("CARTAS COMPRADAS: [        ]  | (0 Cartas)");
-    }else{
-      System.out.println("CARTAS COMPRADAS: " + ultimaCartaComprada.toString() + "  | (" + lengthCartasCompradas + " Cartas)");
+    refAPrintar = refVazio;
+    if(lengthCartasCompradas > 0){
+      refAPrintar = "";
+      ArrayList<Carta> cartas = controller.getCartasCompradas();
+  
+      for(Carta carta: cartas){
+        String strCarta = carta.toString();
+        refAPrintar = refAPrintar.concat(strCarta); 
+      }
     }
+    System.out.println("CARTAS COMPRADAS: " + refAPrintar + "  | (" + lengthCartasCompradas + " Cartas)");
+    
   }
 
   public void imprimirFileiras(){

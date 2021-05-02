@@ -1,6 +1,7 @@
 package utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import models.Carta;
 
@@ -81,5 +82,9 @@ public class ListaDeCartas {
 
   public boolean isEmpty(){
     return this.cartas.isEmpty();
+  }
+
+  public void reverse(){
+    Collections.reverse(cartas);
   }
 }

@@ -5,25 +5,48 @@ import java.util.Collections;
 
 import errors.MovimentoInvalidoException;
 import models.Carta;
+import utils.ListaDeCartas;
 
 public class Remanecente {
-  public ArrayList<Carta> monteDeCompra;
-  public ArrayList<Carta> cartasCompradas;
+  public ListaDeCartas monteDeCompra;
+  public ListaDeCartas cartasCompradas;
+  public int modoJogo;
   
+  // public Remanecente(ArrayList<Carta> cartas) {
+  //   this.monteDeCompra = cartas;
+  //   cartasCompradas = new ArrayList<Carta>();
+  // }
   public Remanecente(ArrayList<Carta> cartas) {
-    this.monteDeCompra = cartas;
-    cartasCompradas = new ArrayList<Carta>();
+    for(Carta carta: cartas){
+      carta.mostrarCarta();
+    }
+    this.monteDeCompra = new ListaDeCartas(cartas);
+    this.cartasCompradas = new ListaDeCartas();
+  }
+
+
+  public int getModoJogo() {
+    return this.modoJogo;
+  }
+
+  public void setModoJogo(int modoJogo) {
+    this.modoJogo = modoJogo;
   }
   
+  
   public void comprarCarta(){
-    if(monteDeCompra.size() > 0) {
-      Carta ultima = monteDeCompra.remove(monteDeCompra.size() -1);
-      ultima.mostrarCarta();
-      cartasCompradas.add(ultima);
+    if(monteDeCompra.length() > 0) {
+      ArrayList<Carta> fatia;
+      if(monteDeCompra.length() > modoJogo)
+        fatia = monteDeCompra.fatiarAPartirDe(monteDeCompra.length() - modoJogo);
+      else
+        fatia = monteDeCompra.fatiarAPartirDe(0);
+
+      cartasCompradas.addVariasCartasNoFinal(fatia);
     }else{
-      Collections.reverse(cartasCompradas);
+      cartasCompradas.reverse();
       monteDeCompra = cartasCompradas;
-      cartasCompradas = new ArrayList<Carta>();
+      cartasCompradas = new ListaDeCartas();
     }
   }
 
@@ -31,20 +54,33 @@ public class Remanecente {
     if(cartasCompradas.isEmpty()) {
       throw new MovimentoInvalidoException("O monte de cartas compradas está vazio");
     }
-    return cartasCompradas.remove(cartasCompradas.size() -1);
+    return cartasCompradas.cartas.remove(cartasCompradas.getUltimoIndex());
   }
 
   public int lenMonteDeCompra(){
-    return monteDeCompra.size();
+    return monteDeCompra.length();
   }
   public int lenCartasCompradas(){
-    return cartasCompradas.size();
+    return cartasCompradas.length();
   }
 
   public Carta getUltimaCartaComprada() { 
     if(cartasCompradas.isEmpty()){
       return null;
     }
-    return cartasCompradas.get(cartasCompradas.size() -1);
+    return cartasCompradas.getUltimaCarta();
   }
+
+  public ArrayList<Carta> getCartasCompradas() {
+    ArrayList<Carta> cartas = null;
+    int ultimoIndex = cartasCompradas.getUltimoIndex();
+    if(modoJogo == 1){
+      cartas = cartasCompradas.subLista(ultimoIndex, ultimoIndex);
+    }else if(modoJogo == 3){
+      cartas = cartasCompradas.subLista(ultimoIndex - 2, ultimoIndex);
+    }
+
+    return cartas;
+  }
+
 }

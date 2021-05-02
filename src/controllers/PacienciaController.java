@@ -77,7 +77,7 @@ public class PacienciaController {
   }
 
   public void addCartaCompradas(Carta c){
-    this.remanecente.cartasCompradas.add(c);
+    this.remanecente.cartasCompradas.cartas.add(c);
   }
 
   public void moveUma(Carta aMover, int destino) throws MovimentoInvalidoException{
@@ -128,6 +128,14 @@ public class PacienciaController {
 
   public Carta getUltimaCartaComprada(){
     return remanecente.getUltimaCartaComprada();
+  }
+
+  public void setModoJogo(int modo){
+    remanecente.setModoJogo(modo);
+  }
+
+  public ArrayList<Carta> getCartasCompradas() {
+    return remanecente.getCartasCompradas();
   }
 
 }
