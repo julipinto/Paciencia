@@ -1,14 +1,15 @@
-## Getting Started
+# Getting Started
 
-[Clique aqui](/GettingStarted.md) para ver as configurações iniciais do projeto
+[Clique aqui](doc/GettingStarted.md) para ver as configurações iniciais do projeto e como rodar
+<br/>
+<br/>
 
-## Folder Structure
+# Documentação
 
-The workspace contains two folders by default, where:
+Veja a Arquitetura e Padrões de Projeto [aqui](doc/doc.md)
+<br/>
+<br/>
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+# Instruções de jogo (Paciência)
 
-## Dependency Management
-
-The `JAVA DEPENDENCIES` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-pack/blob/master/release-notes/v0.9.0.md#work-with-jar-files-directly).
+# Contribuindo com o projeto
