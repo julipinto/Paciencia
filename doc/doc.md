@@ -21,6 +21,10 @@ A arquitetura utilizada nesse projeto foi a MVC (Model - View - Controller)
 
 # Lógica do programa
 
+## Modelo Conceitual
+
+<img src="assets/modelo conceitual.png" >
+
 ## Main
 
 O método main chama uma factory de baralho, onde pode ser passados algumas opções para ele como:
