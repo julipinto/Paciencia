@@ -10,6 +10,9 @@ public class Baralho extends ListaDeCartas{
 
   public Baralho(){}
 
+  /**
+   * Embaralha o baralho
+   */
   public void embaralhar(){
     Collections.shuffle(cartas);
   }

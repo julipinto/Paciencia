@@ -27,6 +27,10 @@ public class PacienciaController {
     }
   }
 
+  
+  /** Retorna se o Jogar venceu o jogo
+   * @return boolean
+   */
   public boolean venceuOJogo(){
     int count = 0;
     for(Fundacao f: fundacoes){
@@ -36,6 +40,9 @@ public class PacienciaController {
   }
 
 
+  /**
+   * Separa as cartas entre as fileiras e o remanecente e inicializa as fundações
+   */
   public void inicializarPartida(){
     separarCartas();
     inicializarFundacoes();
@@ -54,6 +61,10 @@ public class PacienciaController {
   }
 
 
+  
+  /** gera as fileiras a partir das sublistas do baralho
+   * @return int
+   */
   private int dividirFileiras(){
     int sum = 0;
     for(int i = 0; i < 7; i++){
@@ -67,19 +78,38 @@ public class PacienciaController {
     return sum;
   }
 
+  
+  /** gera o remanecente a partir do resto do baralho
+   * @param fromIndex
+   */
   private void gerarRemanecente(int fromIndex){
     ArrayList<Carta> restoDoBaralho = this.baralho.subLista(fromIndex, this.baralho.length() -1);
     this.remanecente = new Remanecente(restoDoBaralho);
   }
 
+  
+  /** Remove a ultima carta da lista de cartas compradas e a devolve
+   * @return Carta
+   * @throws MovimentoInvalidoException
+   */
   public Carta popCartasCompradas() throws MovimentoInvalidoException{
     return this.remanecente.popCartasCompradas();
   }
 
+  
+  /** 
+   * @param c
+   */
   public void addCartaCompradas(Carta c){
     this.remanecente.cartasCompradas.cartas.add(c);
   }
 
+  
+  /** Move uma carta aMover para um destino
+   * @param aMover
+   * @param destino
+   * @throws MovimentoInvalidoException
+   */
   public void moveUma(Carta aMover, int destino) throws MovimentoInvalidoException{
     if(destino >= 0 && destino <= 6){
       fileiras[destino].addUma(aMover);
@@ -89,6 +119,12 @@ public class PacienciaController {
     }
   }
 
+  
+  /** Move várias cartas para um destino
+   * @param cartas
+   * @param destino
+   * @throws MovimentoInvalidoException
+   */
   public void moveVarias(ArrayList<Carta> cartas, int destino) throws MovimentoInvalidoException{
     if(destino >= 0 && destino <= 6){
       fileiras[destino].addVarias(cartas);
@@ -96,6 +132,10 @@ public class PacienciaController {
     }
   }
 
+  
+  /** Calcula qual a maior fileira
+   * @return int
+   */
   public int calculaMaiorFileira(){
     int maior = 0;
     for (Fileira f: this.fileiras){
@@ -106,34 +146,68 @@ public class PacienciaController {
     return maior;
   }
 
+  
+  /** Retorna a quantidade de fundações
+   * @return int
+   */
   public int qtdFundacoes() {
     return fundacoes.length;
   }
 
+  
+  /** Fundação no index está vazio
+   * @param index
+   * @return boolean
+   */
   public boolean fundacaoIndexIsEmpty(int index) {
     return fundacoes[index].isEmpty();
   }
 
+  
+  /** Pega ultima carta da fundação index
+   * @param index
+   * @return Carta
+   */
   public Carta getUltitmaCartaFundacaoIndex(int index) {
     return fundacoes[index].getUltimaCarta();
   }
 
+  
+  /** 
+   * @return tamanho da lista de monte de compra
+   */
   public int lenMonteDeCompra() {
     return remanecente.lenMonteDeCompra();
   }
 
+  
+  /** 
+   * @return tamanho da lista de monte de cartas compradas
+   */
   public int lenCartasCompradas() {
      return remanecente.lenCartasCompradas();
   }
 
+  
+  /** 
+   * @return Ultima carta que foi comprada
+   */
   public Carta getUltimaCartaComprada(){
     return remanecente.getUltimaCartaComprada();
   }
 
+  
+  /** 
+   * @param modo
+   */
   public void setModoJogo(int modo){
     remanecente.setModoJogo(modo);
   }
 
+  
+  /** 
+   * @return pega as cartas compradas de acordo ao modo de jogo
+   */
   public ArrayList<Carta> getCartasCompradas() {
     return remanecente.getCartasCompradas();
   }

@@ -20,6 +20,9 @@ public class Paciencia extends Jogo {
     controller = new PacienciaController(baralho);
   }
  
+  /**
+   * Sobrescrita do método jogar
+   */
   @Override
   public void jogar() {
     do {
@@ -68,6 +71,10 @@ public class Paciencia extends Jogo {
     controller.setModoJogo(modoJogo);
   }
 
+  
+  /** Parabeniza o jogador e pergunta se ele quer jogar uma nova partida
+   * @return boolean
+   */
   public boolean parabenizar(){
     printarJogo();
     imprimirSeparador(103, true);
@@ -91,6 +98,9 @@ public class Paciencia extends Jogo {
     return false;
   }
 
+  /**
+   * Faz o print do jogo todo
+   */
   public void printarJogo(){
     imprimirSeparador(103, true);
     imprimirFundacoes();
@@ -100,6 +110,11 @@ public class Paciencia extends Jogo {
     pularLinha();
   }
 
+  
+  /** Imprime um separador do tamanho passado pelo parâmetro
+   * @param count
+   * @param tracejado
+   */
   public void imprimirSeparador(int count, boolean tracejado){
     String c = " ";
     if(tracejado){
@@ -108,6 +123,9 @@ public class Paciencia extends Jogo {
     System.out.print(c.repeat(count));
   }
   
+  /**
+   * Imprime as fundações no canto direito do terminal
+   */
   public void imprimirFundacoes(){
     pularLinha();
     int lengthFundacoes = controller.qtdFundacoes();
@@ -129,16 +147,26 @@ public class Paciencia extends Jogo {
     pularLinha();
   }
 
+  /**
+   * Pula uma linha
+   */
   public void pularLinha(){
     System.out.println("");
   }
 
+  
+  /** Pula a quantidade de linhas passado por parâmetro
+   * @param qtdLinhas
+   */
   public void pularLinha(int qtdLinhas){
     for(int i=0; i<qtdLinhas; i++){
       System.out.println("");
     }
   }
 
+  /**
+   * Imprime os remanecentes
+   */
   public void imprimirRemanecentes(){
     pularLinha();
     String refAPrintar;
@@ -168,6 +196,9 @@ public class Paciencia extends Jogo {
     
   }
 
+  /**
+   * Imprime as fileiras na vertical
+   */
   public void imprimirFileiras(){
     System.out.println("\nFILEIRAS: ");
     imprimirIndicesFileiras();
@@ -185,6 +216,9 @@ public class Paciencia extends Jogo {
     }
   }
 
+  /**
+   * Imprime os índices das fileiras
+   */
   public void imprimirIndicesFileiras(){
     System.out.print("    (0)");
     System.out.print("            (1)");
@@ -196,6 +230,10 @@ public class Paciencia extends Jogo {
   }
 
 
+  
+  /** Menu durante o jogo
+   * @return boolean
+   */
   public boolean menuRodada(){
     System.out.println("\nSelecione uma opção");
     System.out.println("1 - Comprar carta / Recarregar Monte de Compra");
@@ -207,6 +245,11 @@ public class Paciencia extends Jogo {
     return opcoesRodada(resposta);
   }
 
+  
+  /** resposta pegada pelo menu
+   * @param resposta
+   * @return boolean
+   */
   public boolean opcoesRodada(int resposta) {
     switch (resposta) {
       case 1: {
@@ -243,6 +286,10 @@ public class Paciencia extends Jogo {
     return true;
   }
 
+  
+  /** restartar um jogo
+   * @return int
+   */
   public int menuRestartarJogo(){
     System.out.println("Você deseja:");
     System.out.println("1 - Recomeçar essa partida");
@@ -252,6 +299,11 @@ public class Paciencia extends Jogo {
     return resposta;
   }
 
+  
+  /** tratar restart de jogo
+   * @param resposta
+   * @return boolean
+   */
   public boolean opcoesRestartarJogo(int resposta){
     if(resposta == 3){
       restartGame = false;
@@ -265,6 +317,10 @@ public class Paciencia extends Jogo {
     return false;
   }
 
+  
+  /** Menu de movimento da carta
+   * @return int
+   */
   public int menuMoverCarta(){
     printarJogo();
     System.out.println("\nEscolha o monte de onde você deseja mover a carta");
@@ -275,6 +331,10 @@ public class Paciencia extends Jogo {
     return resposta;
   }
 
+  
+  /**Move carta
+   * @param resposta
+   */
   public void moverCarta(int resposta){
     if(resposta < 8 && resposta >= 0){
       printarJogo();
@@ -287,6 +347,9 @@ public class Paciencia extends Jogo {
     }
   }
 
+  /**
+   * Mover do monte comprado
+   */
   public void moverCartaDoMonteComprado(){
     Carta aMover = null;
     try {
@@ -311,6 +374,10 @@ public class Paciencia extends Jogo {
     
   }
 
+  
+  /** Move carta de uma fileira
+   * @param indexFileira
+   */
   public void moverCartaDasFileiras(int indexFileira){
     Fileira fileira = controller.fileiras[indexFileira];
 
@@ -378,6 +445,13 @@ public class Paciencia extends Jogo {
     fileira.checkUltimaCarta();
   }
 
+  
+  /** Escolhe a partir de qual index o jogador quer mover as cartas
+   * @param fileira
+   * @param indexFileira
+   * @return int
+   * @throws MovimentoInvalidoException
+   */
   public int fromIndexFileiraASerMovido(Fileira fileira, int indexFileira) throws MovimentoInvalidoException{
     System.out.println("\nA partir de qual carta da fileira " + indexFileira +" você deseja mover?");
     int[] indexes = fileira.indexPrimeiraEUltimaCartaVirada();
@@ -404,6 +478,11 @@ public class Paciencia extends Jogo {
     return indiceASerMovido;
   }
 
+  
+  /** Destino da movimentação de cartas
+   * @param incluirFundacao
+   * @return int
+   */
   public int menuDestinoMoverCarta(boolean incluirFundacao){
     System.out.println("Para onde você deseja mover a(s) carta(s)?");
     System.out.println("[0 ~ 6] - Fileira (Digite o número correspondente ao índice da fileira");

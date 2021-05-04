@@ -21,18 +21,36 @@ public class Carta {
     this.face = false;
   }
 
+  /**
+   * Seta o face para true
+   */
   public void mostrarCarta(){
     this.face = true;
   }
 
+  /**
+   * Seta o face para false
+   */
   public void esconderCarta(){
     this.face = false;
   }
 
+  
+  /** Mede a distância entre a carta atual e a carta passada por parâmetro
+   * ex: a distancia entre a carta 10 e a carta J é 1
+   * @param carta
+   * @return int
+   */
   private int distancia(Carta carta){
     return carta.peso - this.peso;
   }
 
+  
+  /** Mede a distância levando em consideração cores alternadas
+   * @param carta
+   * @return int
+   * @throws MovimentoInvalidoException
+   */
   public int distanciaEntreCores(Carta carta) throws MovimentoInvalidoException{
     if(this.cor.equals(carta.cor)){
       throw new MovimentoInvalidoException("As cartas tem a mesma cor");
@@ -40,13 +58,24 @@ public class Carta {
     return distancia(carta);
   }
 
-  public int distanciaMesmoNaipe(Carta carta){
+  
+  /** Mede distância levando em consideração ser do mesmo naipe
+   * @param carta
+   * @return int
+   * @throws MovimentoInvalidoException
+   */
+  public int distanciaMesmoNaipe(Carta carta) throws MovimentoInvalidoException{
     if(!this.naipe.equals(carta.naipe)){
-      return -99;
+      throw new MovimentoInvalidoException("As cartas não tem o mesmo naipe");
     }
     return distancia(carta);
   }
 
+  
+  /** Caso a carta esteja virada para cima ela recebe os caracteres para ser pintada no terminal
+   * @param content
+   * @return String
+   */
   private String consoleCarta(String content){
     if(face){
       return ansiTerminalColor[0] + "[" + content + "]" + ansiTerminalColor[1];
@@ -55,6 +84,10 @@ public class Carta {
     }
   }
 
+  
+  /** retorna a carta já formatada como [ Valor de Símbolo ]
+   * @return String
+   */
   @Override
   public String toString() {
     String content;

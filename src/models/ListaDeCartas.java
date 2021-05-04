@@ -39,10 +39,18 @@ public class ListaDeCartas {
     return fatia;
   }
 
+  
+  /** 
+   * @return int tamanho do array de cartas
+   */
   public int length() {
     return cartas.size();
   }
 
+  
+  /** 
+   * @return Ultima carta da lista
+   */
   public Carta getUltimaCarta(){
     if(!isEmpty()){
       return this.cartas.get(this.getUltimoIndex());
@@ -50,16 +58,26 @@ public class ListaDeCartas {
     return null;
   }
 
+  
+  /** 
+   * @return Primeira carta da lista
+   */
   public Carta getPrimeiraCarta(){
     return this.cartas.get(0);
   }
 
+  
+  /** Pega uma carta pelo seu index na lista
+   * @param index
+   * @return Carta, null se o index for maior que ou igual ao tamanho do array
+   */
   public Carta get(int index){
+    if(index >= length()) return null;
     return this.cartas.get(index);
   }
 
   
-  /** 
+  /** Adiciona uma carta ao final do array
    * @param carta
    */
   public void addUmaCartaNoFinal(Carta carta){
@@ -67,21 +85,32 @@ public class ListaDeCartas {
   }
 
   
-  /** 
+  /** Acidiona várias cartas ao final da lista de cartas
    * @param cartas
    */
   public void addVariasCartasNoFinal(ArrayList<Carta> cartas){
     this.cartas.addAll(cartas);
   }
 
+  
+  /** Pega o ultimo index da lista de cartas
+   * @return int
+   */
   public int getUltimoIndex(){
     return this.length() - 1;
   }
 
+  
+  /** 
+   * @return true se a lista está vazia
+   */
   public boolean isEmpty(){
     return this.cartas.isEmpty();
   }
 
+  /**
+   * Reverte a ordem da lista de cartas
+   */
   public void reverse(){
     Collections.reverse(cartas);
   }

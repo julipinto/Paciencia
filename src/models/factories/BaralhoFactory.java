@@ -14,10 +14,19 @@ public class BaralhoFactory {
   
   public BaralhoFactory(){}
   
+  /**
+   * Gerar baralho x quantidade de baralhos (Default = 1)
+   * @param quantidadeDeBaralhos
+   */
   public BaralhoFactory(int quantidadeDeBaralhos) {
     this.quantidadeDeBaralhos = quantidadeDeBaralhos;
   }
   
+  
+  /** Gera uma instância de baralho
+   * @param embaralhado true se você quer um baralho já embaralhado
+   * @return Baralho
+   */
   public Baralho gerarBaralho(boolean embaralhado){
     ArrayList<Carta> cartas = new ArrayList<Carta>();
 

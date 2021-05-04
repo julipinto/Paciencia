@@ -14,10 +14,18 @@ abstract public class Jogo {
     this.input = new Scanner(System.in);
   }
   
+  
+  /**  Inicia o jogo (Deve ser implementado pelas classes filhas)
+   * @throws JogoNaoEncontradoException
+   */
   public void jogar() throws JogoNaoEncontradoException{
     throw new JogoNaoEncontradoException("Esse jogo não foi implementado");
   }
 
+  
+  /** Pega o input digitado pelo usuário já tratado como inteiro
+   * @return int entrada, -99 caso o usuário não digitou um número inteiro
+   */
   public int inputInt(){
     try {
       int nextInt = input.nextInt();
