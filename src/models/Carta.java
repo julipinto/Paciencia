@@ -77,7 +77,7 @@ public class Carta {
    * @return String
    */
   private String consoleCarta(String content){
-    if(face){
+    if(face && this.cor.equals("vermelho")){
       return ansiTerminalColor[0] + "[" + content + "]" + ansiTerminalColor[1];
     }else {
       return "[" + content + "]";
